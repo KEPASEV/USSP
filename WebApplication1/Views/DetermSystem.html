@@ -1,0 +1,286 @@
+﻿<!DOCTYPE HTML>
+<html lang="ru" class="fuelux">
+	<head>
+		<meta charset="utf-8">
+		<title>
+			Universal System Problem Solver
+		</title>
+		<link href="../CSS/bootstrap.min.css" rel="stylesheet">
+		<link href="../CSS/bootstrap-select.css" rel="stylesheet">
+		<link href="../CSS/bootstrap-switch.min.css" rel="stylesheet">
+		<link href="../CSS/fuelux.css" rel="stylesheet">
+		<link href="../CSS/my.css" rel="stylesheet">
+        <link href="../CSS/badge.css" rel="stylesheet">
+        <link href="../CSS/jquery.fileupload-ui.css" rel="stylesheet">
+        <link href="../CSS/jquery.fileupload.css" rel="stylesheet">
+        <!--[if IE]>
+         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <![endif]-->
+        
+	</head>
+	<body style="overflow:scroll">
+		<div class="container">
+			<!--NAVIGATION PANEL-->
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Универсальный решатель системных задач</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+						<!--		<li><a href="#">Home</a></li> -->
+						<li><a href="#">О проекте</a></li>
+						<li><a href="#">Контакты</a></li>
+					</ul>
+				</div>
+			</nav>
+			<!--WIZARD HEAD-->
+			<div id="myWizard" class="wizard">
+				<ul class="steps">
+					<li data-target="#step1" class="active">
+						<span class="badge badge-info" >1</span>Шаг 1<span class="chevron"></span>
+					</li>
+                    <li data-target="#step2" >
+                        <span class="badge">2</span>Шаг 2<span class="chevron"></span>
+                    </li>
+                    <li data-target="#step3">
+                        <span class="badge">3</span>Шаг 3<span class="chevron"></span>
+                    </li>
+				</ul>
+				<!--Buttons Prev and Next-->
+				<!--
+				<div class="actions">
+					<button class="btn btn-mini btn-prev"><i class="icon-arrow-left"></i>Prev</button>
+					<button class="btn btn-mini btn-next" data-last="Finish">Next<i class="icon-arrow-right"></i></button>
+				</div>
+				-->
+			</div>
+			<!--WIZARD CONTENT-->
+			<div class="step-content">
+				<div class="step-pane active" id="step1">
+					<h2>Шаг 1 - Инициализация системы</h2>
+					<div class="row">						
+						<div class="col-lg-6">
+							<div class="btn-group" data-toggle="buttons">
+                                <button type="button" class="btn btn-info systemElement" data-toggle="pill" data-value="var">Переменная
+                                </button>
+                                <button type="button" class="btn btn-info systemElement" data-toggle="pill" data-value="param">Параметр
+                                </button>
+							</div>
+							<label class="control-label warning-helper col-lg-8" for="varName">Danger!!!</label>
+							<div class="input-group col-lg-8">
+								<input type="text" class="form-control" id="varName">
+									<span class="input-group-btn">
+										<select id="typeSelection" title ="Тип" >
+											<option data-hidden="true" value="type"></option>
+											<option value="number">Числовой</option>
+											<option value="nominal">Номинальный</option>
+											<option value="time">Время</option>
+										</select>
+									</span>
+							</div>
+							<!--VARIABLES SETTINGS-->
+							<div class="row col-lg-7" >
+								<!--FOR NUMBER VARIABLES-->
+								<div class="typePanel" id="number" >
+									<div class="row col-lg-12">
+										<h4><span class="label label-default col-lg-8">Область определения</span></h4>
+										<p class="col-lg-5" id="rangeOfDefenition">&#91 -&infin; ; +&infin; &#93</p>
+									</div>
+									<div class="row">
+									<div class="col-lg-6">
+										<h4><span class="label label-default">Нижняя граница</span></h4>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" data-range="low" checked> минус бесконечность
+											</label>
+										</div>
+										<input type="number" class="form-control" data-range="low" name="lowRange"  value="0">
+									</div>
+									<div class="col-lg-6">
+										<h4><span class="label label-default">Верхняя граница</span></h4>
+										<div class="checkbox">
+											<label>
+												<input type="checkbox" data-range="high" checked> плюс бесконечность
+											</label>
+										</div>
+										<input type="number" class="form-control" data-range="high" name="highRange" value="0" >
+									</div>									
+									</div>
+									<!-- Fuzzy checkbox
+									<div class="checkbox">
+										<label>
+											<input type="checkbox"> Fuzzy
+										</label>
+									</div>
+									-->
+								</div>
+								<!--FOR NOMINAL VARIABLES-->
+								<div class="typePanel" id="nominal">
+									<h4><span class="label label-default">Значения</span></h4>
+									<div class="checkbox">
+										<label>
+											<input type="checkbox" checked> Все встречающиеся значения
+										</label>
+									</div>
+									<div>
+										<label class="control-label warning-helper"  for="stateName">Danger!!!</label>
+										<div class="input-group">
+											<input type="text" class="form-control" id="stateName">
+											<span class="input-group-btn">
+												<button class="btn btn-default" id="addState" role="button">
+													<span class="glyphicon glyphicon-plus"></span> Добавить
+												</button>
+											</span>
+										</div>
+										<h4><span class="label label-default">Комментарий</span></h4>
+										<input type="text" class="form-control" id="stateDescription">
+										<table class="table table-condensed col-lg-7" id="statesTable">
+											<thead>
+												<tr>
+													<th>#</th>
+													<th>Значение</th>
+													<th>Комментарий</th>
+												</tr>
+											</thead>
+											<tbody id="statesRows">
+											</tbody>
+										</table>
+									</div>
+								</div>
+								<!--FOR TIME VARIABLES-->
+								<div class="typePanel" id="time">
+									<h4><span class="label label-default">Метод и единицы измерения</span></h4>
+									<div class="row">
+										<div class="col-lg-6">
+											<select>
+												<option value="points">Отсчеты</option>
+												<option value="duration">Длительность</option>
+											</select>	
+										</div>
+										<div class="col-lg-6">
+											<div data-panelFor="points">
+												<select>
+													<option value="date">Дата</option>
+													<option value="tick">Тик</option>
+												</select>	
+											</div>
+											<div data-panelFor="duration">
+												<select>
+													<option value="secund">Секунды</option>
+													<option value="minute">Минуты</option>
+													<option value="hour">Часы</option>
+													<option value="day">Дни</option>
+													<option value="Week">Недели</option>
+												</select>	
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="input-group col-lg-8">
+								<h3><span class="label label-default">Комментарий</span></h3>
+								<input type="text" class="form-control" id="description"></input>
+								<button class="btn btn-primary btn-lg col-lg-4 marginfix" role="button" id="addVar">Добавить</button>
+							</div>
+						</div>
+					</div>
+					<!--TABLE OF VARIABLES-->
+					<div class="row">
+						<div class="col-lg-6">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Переменная</th>
+										<th>Тип</th>
+										<th>Комментарий</th>
+										<th>Область определения</th>
+									</tr>
+								</thead>
+								<tbody id="varRows">
+								</tbody>
+							</table>
+						</div>
+						<div class="col-lg-6">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>#</th>
+										<th>Параметр</th>
+										<th>Тип</th>
+										<th>Комментарий</th>
+										<th>Область определения</th>
+									</tr>
+								</thead>
+								<tbody id="paramRows">
+								</tbody>
+							</table>
+						</div>
+					</div>
+                    <button type="button" class="btn-lg btn-next" value="next" >Дальше</button>
+				</div>
+                <div class="step-pane" id="step2">
+                    <h2>Шаг 2 - Загрузка данных</h2>
+                    <div>
+                        <form id="fileupload" action="//jquery-file-upload.appspot.com/" method="POST" enctype="multipart/form-data">
+                            <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
+                            <div class="row fileupload-buttonbar">
+                                <div class="col-lg-7">
+                                    <span class="btn btn-success fileinput-button">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Добавить файлы...</span>
+                                        <input type="file" name="files[]" multiple>
+                                    </span>
+                                    <button type="submit" class="btn btn-primary start">
+                                        <i class="glyphicon glyphicon-upload"></i>
+                                        <span>Начать загрузку</span>
+                                    </button>
+                                    <button type="reset" class="btn btn-warning cancel">
+                                        <i class="glyphicon glyphicon-ban-circle"></i>
+                                        <span>Отменить загрузку</span>
+                                    </button>
+                                    <button type="button" class="btn btn-danger delete">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                        <span>Удалить</span>
+                                    </button>
+                                    <!-- The global file processing state -->
+                                    <span class="fileupload-process"></span>
+                                </div>
+                                <!-- The global progress state -->
+                                <div class="col-lg-5 fileupload-progress fade">
+                                    <!-- The global progress bar -->
+                                    <div class="progress progress-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100">
+                                        <div class="progress-bar progress-bar-success" style="width:0%;"></div>
+                                    </div>
+                                    <!-- The extended global progress state -->
+                                    <div class="progress-extended">&nbsp;</div>
+                                </div>
+                            </div>
+                            <!-- The table listing the files available for upload/download -->
+                            <table role="presentation" class="table table-striped">
+                                <tbody class="files">
+                                </tbody>
+                            </table>
+                        </form>
+                        <button type="button" class="btn-lg btn-next" value="next">Дальше</button>
+                    </div>
+			</div>
+                <div class="step-pane" id="step3">
+                    <h2>Шаг 3 - Определение системы с поведением</h2>
+                </div>
+            </div>
+		</div>
+
+        <script src="../Scripts/jquery-2.1.0.min.js"></script>
+		<script src="../Scripts/loader.min.js"></script>
+		<script src="../Scripts/bootstrap-select.min.js"></script>
+		<script src="../Scripts/bootstrap-switch.min.js"></script>
+        <!--<script src="../Scripts/jquery.fileupload-image.min.js"></script>
+        <script src="../Scripts/jquery.fileupload-process.min.js"></script>
+        <script src="../Scripts/jquery.blueimp-gallery.min.js"></script>
+        <script src="../Scripts/jquery.uploadfile.min.js"> </script>
+        <script src="../Scripts/jquery.ui.widget.min.js"></script>-->
+        <script src="../Scripts/myui.js"></script>
+        
+	</body>
+
