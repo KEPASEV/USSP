@@ -2,4 +2,26 @@
 	margin-top: 10px;
 	margin-bottom: 15px;
 }
+
+#maskWidget{
+    overflow-x:scroll;
+}
+
+.maskHeader {
+    margin-left:-16px;
+    margin-top:-1px;
+    background-color:white;
+    min-width:200px;
+}
+
+#maskWidget td {
+    width:60px;
+    max-width:60px;
+    min-width:60px;
+    overflow:hidden;
+}
+
+.fixed {
+    position:fixed;
+    width:200px;
 }

@@ -1,4 +1,11 @@
-$(document).ready(function(){
+$(document).ready(function () {
+
+    $('#initSystemNextButton').on('click', function () {
+        //getSystem('#initialSystem');
+        systemJson = getSystem('#initialSystem');
+        maskWidget("#maskWidget", systemJson);
+    });
+
     $('#myWizard').wizard();
     $('.btn-next').on('click', function () {
         $('#myWizard').wizard('next', 'foo');
@@ -129,11 +136,14 @@ $(document).ready(function(){
 		var varName = varNameInput.val().trim();
 		var isNotInTable = true;
 		if( varName !== ""){
-			var rows;
+		    var rows;
+		    var role;
 			if(systemElement == "param"){
-				rows = paramRows;
+			    rows = paramRows;
+			    role = "parameter";
 			}else{
-				rows = varRows;
+			    rows = varRows;
+			    role = "variable";
 			}
 			rows.each(function(){
 				return (isNotInTable = (this.innerText !== varName));
@@ -146,11 +156,11 @@ $(document).ready(function(){
 					var range = getRange(typeVal);
 					var lastNum = rows.find('tr:last td:first').text();
 					var num = (lastNum == "")?1:++lastNum;
-					rows.append('<tr><td>'+num+
+					rows.append('<tr class="element" data-role="'+role+'"><td>'+num+
 						'</td><td class="varName">'+varName+
 						'</td><td>'+typeName+'</td>'+
-						'</td><td>'+description+'</td>'+
-						'</td><td>'+range+'</td>'+
+						'<td>'+description+'</td>'+
+						'<td>'+range+'</td>'+
 						'<td data-action="removeRow"> <span data-action="removeRow" style="cursor:default" class="glyphicon glyphicon-remove"></span> </td>' +
 						'</tr>');
 				inputs.filter('[type="text"]').val("");

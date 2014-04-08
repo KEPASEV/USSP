@@ -102,7 +102,9 @@
     <Content Include="Scripts\jquery.fileupload-process.js" />
     <Content Include="Scripts\jquery.ui.widget.js" />
     <Content Include="Scripts\jquery.uploadfile.min.js" />
+    <Content Include="Scripts\json.js" />
     <Content Include="Scripts\loader.min.js" />
+    <Content Include="Scripts\mask.js" />
     <Content Include="Scripts\myui.js" />
     <Content Include="Scripts\wizard.js" />
     <Content Include="Views\About.html" />
