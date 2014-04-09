@@ -23,6 +23,10 @@
     return jsonSystem;
 }
 
+function getMask(selector) {
+
+}
+
 function NewSystem(name, goal, elements) {
     this.name = name;
     this.goal = goal;
