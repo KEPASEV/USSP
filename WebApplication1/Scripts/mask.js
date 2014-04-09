@@ -4,40 +4,38 @@
       
         var system = JSON.parse(systemJSON);
         
-        var maskWidget = $('#maskWidget').on('scroll', function (e) {
-   
-            if (this.scrollLeft> 200) {
-                $('.maskHeader').addClass("fixed");
-            } else {
-                $('.maskHeader').removeClass("fixed");
-            }
-            
-        })
+        var headers = "";
+        var values = "";
+        var paramHeaders ="";
+        var valHeaders = "";
+        var paramVal = "";
+        var valueVal = "";
 
-        var parametersTick = '<tr id="pTick"><th class="maskHeader">Номер отсчета</th>';
-        var parametersSeparator = '<tr><th class="maskHeader"></th>';
-        var variablesHead = "";
-        var parametersHead = "";
+        
 
         var tickCount = 0;
         $(system.elements).each(function (i, e) {
             if (e.role === 'parameter') {
-                parametersHead += '<tr><th class="maskHeader">' + e.name + '</th>';
+                paramHeaders += '<tr  class="maskHeader"><th>' + e.name + '</th></tr>';
                 tickCount = 0;
+                paramVal += "<tr>";
                 e.values.forEach(function (v) {
-                    parametersHead += '<td>' + v + '</td>';
+                    paramVal += '<td>' + v + '</td>';
                     tickCount++;
                 })
-                parametersHead += '</tr>';
+                paramVal+= '</tr>';
             } else {
-                variablesHead += '<tr class = "var"><th class="maskHeader">' + e.name + '</th>';
+                valHeaders += '<tr class="maskHeader"><th >' + e.name + '</th></tr>';
+                valueVal += '<tr class="values">';
                 e.values.forEach(function (v) {
-                    variablesHead += '<td>'+v+'</td>';
+                    valueVal += '<td>'+v+'</td>';
                 })
-                variablesHead += '</tr>';
+                valueVal += '</tr>';
             }
         });
         
+        parametersTick = '<tr>';
+        parametersSeparator = '</tr>';
         for (var i = 0; i < tickCount; i++) {
             parametersTick += '<td>' + i + '</td>';
             parametersSeparator += '<td></td>';
@@ -45,40 +43,51 @@
         parametersTick += '</tr>';
         parametersSeparator += '</tr>';
 
+
+        headers = paramHeaders + '<tr class="maskHeader"><th >Номер осчета</th></tr><tr><th></th></tr>' + valHeaders + "</tr>";
+        values = paramVal + parametersTick + parametersSeparator + valueVal
+
         var underCursorClass = "badge-info";
-        var viewMode = true;
-        var maskTable = $('#maskTable').css("cursor","default");
-        maskTable.find('tr').remove();
-        maskTable.find('tbody').append(parametersHead);
-        maskTable.find('tbody').append(parametersTick);
-        maskTable.find('tbody').append(parametersSeparator);
-        maskTable.find('tbody').append(variablesHead).find('.var > td').hover(function (e) {
-            elem = $(this);
-            if (elem.hasClass("badge-success") && !viewMode) {
-                elem.removeClass("badge-success");
-            } else {
-                elem.addClass(underCursorClass);
-            }  
-            
-        },
-        function (e) {
-            if (viewMode) {
-                $(this).removeClass(underCursorClass);
-            }
-        }).on('mousedown', function (e) {
-            elem = $(this);
-            viewMode = false;
-            elem.removeClass(underCursorClass);
-            underCursorClass = "badge-success";
-            if (elem.hasClass("badge-success")) {
-                elem.removeClass("badge-success");
-            } else {
-                elem.addClass(underCursorClass);
-            }
-            return false;
-        }).on('mouseup', function (e) {
-            viewMode = true;
-            underCursorClass = "badge-info";
+        var selectedClass = "badge-success";
+        var mouseDown = false;
+        var editMode;
+        widgetContainer.css("cursor", "default");
+        widgetContainer.find('tr').remove();
+        widgetContainer.find('thead').append(headers);
+        $('#maskToolBar').on('click', function (e) {
+            editMode = e.target.id;
         });
+        
+        widgetContainer.find('tbody')
+            .append(values).
+            find('.values > td').
+            hover(function (e) {
+                if (editMode != undefined && mouseDown) {
+                    elem = $(this);
+                    if (editMode === "pen") {
+                        elem.addClass(selectedClass);
+                    } else if (editMode === "eraser") {
+                        elem.removeClass(selectedClass);
+                    }
+                }
+                $(this).addClass(underCursorClass);
+            },
+             function (e) {
+                $(this).removeClass(underCursorClass);
+             })
+            .on('mousedown', function (e) {
+                mouseDown = true;
+                if (editMode != undefined) {
+                    elem = $(this);
+                    if (editMode === "pen") {
+                        elem.addClass(selectedClass);
+                    } else if (editMode === "eraser") {
+                        elem.removeClass(selectedClass);
+                    }
+                }
+                return false;
+            }).on('mouseup', function (e) {
+                mouseDown = false;
+            });
 
     }

@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    
+
     $('#initSystemNextButton').on('click', function () {
         //getSystem('#initialSystem');
         systemJson = getSystem('#initialSystem');
