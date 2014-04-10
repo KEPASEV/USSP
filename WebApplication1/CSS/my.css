@@ -47,3 +47,7 @@
 .clear {
     float:none;
 }
+
+#selectedVarTable {
+    margin-top: 20px;
+}

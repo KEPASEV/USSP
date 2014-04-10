@@ -287,35 +287,57 @@
                     </div>
 			</div>
                 <div class="step-pane" id="step3">
-                    <h2>Шаг 3 - Определение системы с поведением</h2>
-                    
-                    
+                    <h2>Шаг 3 - Определение системы с поведением</h2>                                      
+                    <div id="mask">
                         <div id="maskWidget" class="row">
-                                <div id="maskToolBar" class="row col-lg-12">
-                                    <div class="btn-group" data-toggle="pill">
-                                        <button type="button" id="pen" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button>
-                                        <button type="button" id="eraser" class="btn btn-default"><span class="glyphicon glyphicon-unchecked"></span></button>
-                                        <button type="button" id="directory" class="btn btn-default"><span class="glyphicon glyphicon-collapse-down"></span></button>
-                                    </div>
-                                </div>        
-                                <div class="clear">
-                                </div>    
-                                <div>   
-                                    <div id="containerForHeaders">
-                                        <table id="maskHead" class="table table-bordered">
-                                            <thead></thead>
-                                        </table>
-                                    </div>
+                            <div class="panel panel-default" >
+                                <div class="panel-heading">
+                                    <h3> Определение маски</h3>
+                                    <input type="text" id="maskName" class="form-control">
+                                    <input type="text" id="maskComment" class="form-control">
+                                    <div id="maskToolBar" class="row col-lg-12">
+                                        <div class="btn-group" data-toggle="pill">
+                                            <button type="button" id="pen" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button>
+                                            <button type="button" id="eraser" class="btn btn-default"><span class="glyphicon glyphicon-unchecked"></span></button>
+                                            <button type="button" id="directory" class="btn btn-default"><span class="glyphicon glyphicon-collapse-down"></span></button>
+                                        </div>
+                                    </div> 
                                 </div>
-                                <div>
-                                    <div id="containerForValues">
-                                        <table id="maskValue" class="table table-bordered">
-                                            <tbody></tbody>
-                                        </table>
-                                    </div>
+                                <div id="containerForHeaders">
+                                    <table class="table table-bordered">
+                                        <thead></thead>
+                                    </table>
+                                </div>
+                                <div id="containerForValues">
+                                    <table class="table table-bordered">
+                                        <tbody></tbody>
+                                    </table>
                                 </div>
                             </div>
-                        
+                        </div>
+                        <div id="selectedVarTable" class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3>Выборочные переменные</h3>
+                                <div id="selectedVarTableToolbar">
+                                    <input type="number" class="form-control col-lg-1">
+                                </div>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Исходная переменная</th>
+                                        <th>Правило сдвига</th>
+                                        <th>Имя</th>
+                                        <th>Значение</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="selectedVars">
+
+                                </tbody>
+                            </table>
+                         </div>                        
+                    </div>
                 </div>
             </div>
 		</div>

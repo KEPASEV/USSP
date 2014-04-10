@@ -5,7 +5,7 @@ $(document).ready(function () {
     $('#initSystemNextButton').on('click', function () {
         //getSystem('#initialSystem');
         systemJson = getSystem('#initialSystem');
-        maskWidget("#maskWidget", systemJson);
+        maskWidget("#mask", systemJson);
     });
 
     $('#myWizard').wizard();
