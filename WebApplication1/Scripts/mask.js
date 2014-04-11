@@ -5,6 +5,7 @@
     var maskMatrix = mask.find('#maskWidget');
     var selectedVarTable = mask.find('#selectedVarTable');
     var selectedVars = selectedVarTable.find('tbody');
+    var currentTick = selectedVarTable.find('#currentTick');
  
 
     $('#maskToolBar').on('click', function (e) {
@@ -73,8 +74,11 @@
         return num;
     }
     var shifts = maskMatrix.find('#shift');
+    var ticks = maskMatrix.find('#ticks');
     var selectedVarsList = [];
     var hashList = [];
+    var tickOverZeroindex = 0;
+
     var sortFunction = function (a, b) {
         if (a.initVar < b.initVar) {
             return -1;
@@ -84,18 +88,24 @@
             return 1;
         }
     };
+    
     var fixNewDirectory = function (newT, maskMatrix) {
         
         var cells = shifts[0].cells;
         var lastFirstShiftValue = Number(cells[0].innerText);
+        
         for (var i = 0; i < cells.length; i++) {
             cells[i].innerHTML = i - newT;
             if (i - newT === 0) {
+                tickOverZero = i;
                 cells[i].innerHTML += '<span class="glyphicon glyphicon-arrow-down"></span>';
             }
         }
+        
+
         var delta = lastFirstShiftValue - Number(cells[0].innerText);
         if (delta !== 0) {
+          
             for (var i = 0, length = selectedVarsList.length; i < length; i++) {
                 var e = selectedVarsList[i];
                 if (e != undefined) {
