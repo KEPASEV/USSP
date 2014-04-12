@@ -83,6 +83,7 @@
     <Content Include="CSS\jquery.fileupload-ui.css" />
     <Content Include="CSS\jquery.fileupload.css" />
     <Content Include="CSS\my.css" />
+    <Content Include="CSS\qunit-1.14.0.css" />
     <Content Include="CSS\uploadfile.min.css" />
     <Content Include="Fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -94,6 +95,8 @@
     <Content Include="Scripts\bootstrap-switch.min.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\d3.min.js" />
+    <Content Include="Scripts\determSystem.js" />
+    <Content Include="Scripts\determSystemTest.js" />
     <Content Include="Scripts\ForFileUpload.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
@@ -106,6 +109,7 @@
     <Content Include="Scripts\loader.min.js" />
     <Content Include="Scripts\mask.js" />
     <Content Include="Scripts\myui.js" />
+    <Content Include="Scripts\qunit-1.14.0.js" />
     <Content Include="Scripts\wizard.js" />
     <Content Include="Views\About.html" />
     <Content Include="Views\Authorization.html" />
@@ -115,6 +119,7 @@
     </Content>
     <Content Include="Views\DetermSystem.html" />
     <Content Include="Views\Registration.html" />
+    <Content Include="Views\TestPage.html" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
