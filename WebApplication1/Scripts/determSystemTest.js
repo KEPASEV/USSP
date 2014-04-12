@@ -18,22 +18,3 @@
     }
 
 });
-
-test('remove from array', function () {
-    var arr = [1, 4, 3, 5, 26, 3];
-    removeFrom(arr, 0);
-    equal(arr[0], 4, 'remove first');
-    equal(arr.length, 5, 'new length');
-
-});
-
-test('hash for object', function () {
-    var newElement = new SystemElement({ name: "<name>" });
-    var hash = getHash(newElement);
-    equal(hash, "<name>", 'hash for element');
-
-    var hashArr = [];
-    hashArr[hash] = 0;
-
-    ok(isExist, 'exist element');
-});

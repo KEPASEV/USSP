@@ -98,6 +98,8 @@
     <Content Include="Scripts\determSystem.js" />
     <Content Include="Scripts\determSystemTest.js" />
     <Content Include="Scripts\ForFileUpload.js" />
+    <Content Include="Scripts\hashTable.js" />
+    <Content Include="Scripts\hashTableTest.js" />
     <Content Include="Scripts\jquery-1.9.1.min.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery.blueimp-gallery.min.js" />
