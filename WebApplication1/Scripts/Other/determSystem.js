@@ -1,7 +1,7 @@
 ﻿var determInitSystem = (function () {
-    var view = {};
+    
     var initSystem = new InitSystem();
-    var elementsHashList = [];
+    var elementsHashList = hashTable;
 
     function InitSystem(system) {
         this.name = system && system.name;
@@ -76,6 +76,7 @@
         }
     }
 }());
+
 
 
 

@@ -91,28 +91,30 @@
     <Content Include="Images\form.png" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
-    <Content Include="Scripts\bootstrap-select.min.js" />
-    <Content Include="Scripts\bootstrap-switch.min.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\d3.min.js" />
-    <Content Include="Scripts\determSystem.js" />
-    <Content Include="Scripts\determSystemTest.js" />
-    <Content Include="Scripts\ForFileUpload.js" />
-    <Content Include="Scripts\hashTable.js" />
-    <Content Include="Scripts\hashTableTest.js" />
-    <Content Include="Scripts\jquery-1.9.1.min.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.js" />
-    <Content Include="Scripts\jquery.blueimp-gallery.min.js" />
-    <Content Include="Scripts\jquery.fileupload-image.js" />
-    <Content Include="Scripts\jquery.fileupload-process.js" />
-    <Content Include="Scripts\jquery.ui.widget.js" />
-    <Content Include="Scripts\jquery.uploadfile.min.js" />
-    <Content Include="Scripts\json.js" />
-    <Content Include="Scripts\loader.min.js" />
-    <Content Include="Scripts\mask.js" />
-    <Content Include="Scripts\myui.js" />
-    <Content Include="Scripts\qunit-1.14.0.js" />
-    <Content Include="Scripts\wizard.js" />
+    <Content Include="Scripts\Libs\bootstrap-select.min.js" />
+    <Content Include="Scripts\Libs\bootstrap-switch.min.js" />
+    <Content Include="Scripts\Libs\bootstrap.min.js" />
+    <Content Include="Scripts\Libs\d3.min.js" />
+    <Content Include="Scripts\Other\determSystem.js" />
+    <Content Include="Scripts\Tests\determSystemTest.js" />
+    <Content Include="Scripts\Other\ForFileUpload.js" />
+    <Content Include="Scripts\Other\hashTable.js" />
+    <Content Include="Scripts\Tests\hashTableTest.js" />
+    <Content Include="Scripts\Libs\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\Libs\jquery-2.1.0.min.js" />
+    <Content Include="Scripts\Libs\jquery.blueimp-gallery.min.js" />
+    <Content Include="Scripts\Libs\jquery.fileupload-image.js" />
+    <Content Include="Scripts\Libs\jquery.fileupload-process.js" />
+    <Content Include="Scripts\Libs\jquery.ui.widget.js" />
+    <Content Include="Scripts\Libs\jquery.uploadfile.min.js" />
+    <Content Include="Scripts\Other\json.js" />
+    <Content Include="Scripts\Libs\loader.min.js" />
+    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\Other\mask.js" />
+    <Content Include="Scripts\Other\myui.js" />
+    <Content Include="Scripts\Libs\qunit-1.14.0.js" />
+    <Content Include="Scripts\require.js" />
+    <Content Include="Scripts\Libs\wizard.js" />
     <Content Include="Views\About.html" />
     <Content Include="Views\Authorization.html" />
     <Content Include="Views\Contacts.html" />
@@ -147,6 +149,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\Controllers\" />
+    <Folder Include="Scripts\Models\" />
+    <Folder Include="Scripts\Views\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
