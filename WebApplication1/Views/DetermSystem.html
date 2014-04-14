@@ -60,49 +60,11 @@
                     <h2>Шаг 1 - Создание системы</h2>
                     <div class="row">
                         <div class="col-md-8">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Создание новой системы</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="form-group">
-                                        <input type="text" class="form-control" id="nameSystem" placeholder="Укажите название вашей системы">
-                                        <textarea class="form-control" id="goalSystem" placeholder="Укажите цель вашей системы"></textarea>
-                                        <button id="addSystem" class="btn btn-block btn-success">Создать систему</button>
-                                    </div>       
-                                </div>
-                            </div>
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Информация о системе</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <span>SystemName</span>
-                                    <p>Goals</p>
-                                    <p>ElementsCount</p>
-                                </div>
-                                <div class="panel-footer">
-                                    <button type="button" id="toInitSystem" class="btn  btn-next" value="next">
-                                        Инициализировать систему
-                                    </button>
-                                </div>
-                            </div>
+                            <div id="addSystemModule"></div>
+                            <div id="infoSystemModule"></div>
                         </div>                        
                         <div class="col-md-4">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Список систем</h3>
-                                </div>
-                                <div class="panel-body">
-                                    <ul class="list-group">
-                                        <li class="list-group-item">Cras justo odio</li>
-                                        <li class="list-group-item">Dapibus ac facilisis in</li>
-                                        <li class="list-group-item">Morbi leo risus</li>
-                                        <li class="list-group-item">Porta ac consectetur ac</li>
-                                        <li class="list-group-item">Vestibulum at eros</li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <div id="listSystemModule"></div>
                         </div>
                     </div>
                     <div class="row col-md-12">                    
@@ -392,6 +354,33 @@
 		</div>
 
         <script data-main="../Scripts/app" src="../Scripts/require.js"></script>
-     
+        <script type="text/template" id="addSystemTemplate">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Создание новой системы</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Укажите название вашей системы" value={{name}}>
+                        <textarea class="form-control" placeholder="Укажите цель вашей системы">{{goal}}</textarea>
+                        <button id="but" class="btn btn-block btn-success">Создать систему</button>
+                    </div>
+                </div>
+            </div>
+        </script> 
+        <script type="text/template" id="listSystemTemplate">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Список систем</h3>
+                </div>
+                <div class="panel-body">
+                    <ul class="list-group">
+                        {{#.}}
+                        <li class="list-group-item">{{name}}</li>
+                        {{/.}}
+                    </ul>
+                </div>
+            </div>
+       </script>               
 	</body>
 

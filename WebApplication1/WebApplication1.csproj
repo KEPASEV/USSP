@@ -120,6 +120,12 @@
     <Content Include="Scripts\Libs\qunit-1.14.0.js" />
     <Content Include="Scripts\require.js" />
     <Content Include="Scripts\Libs\wizard.js" />
+    <Content Include="Scripts\Views\AddSystemView.js" />
+    <Content Include="Scripts\Views\InfoSystemView.js" />
+    <Content Include="Scripts\Views\ListSystemView.js" />
+    <Content Include="Scripts\Views\Templates\addSystemTemplate.htm" />
+    <Content Include="Scripts\Views\Templates\infoSystemTemplate.html" />
+    <Content Include="Scripts\Views\Templates\listSystemTemplate.html" />
     <Content Include="Views\About.html" />
     <Content Include="Views\Authorization.html" />
     <Content Include="Views\Contacts.html" />
@@ -154,7 +160,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\Views\Templates\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

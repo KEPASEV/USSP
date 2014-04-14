@@ -4,7 +4,15 @@
         mustache:'Libs/mustache'
     }
 });
-require(['mustache'], function (mustache) {
-    console.log(mustache);
-    
+require(['mustache',
+         'Controllers/AddSystem',
+         'Controllers/InfoSystem',
+         'Controllers/ListSystem'], function (mustache, AddSystem, InfoSystem, ListSystem) {
+
+    var systems = [];
+    localStorage.systems = JSON.stringify(systems);
+
+    AddSystem.start();
+    InfoSystem.start();
+    ListSystem.start();
 });
