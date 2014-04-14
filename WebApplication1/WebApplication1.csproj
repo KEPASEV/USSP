@@ -91,11 +91,16 @@
     <Content Include="Images\form.png" />
     <Content Include="Images\glyphicons-halflings-white.png" />
     <Content Include="Images\glyphicons-halflings.png" />
+    <Content Include="Scripts\Controllers\AddSystem.js" />
+    <Content Include="Scripts\Controllers\InfoSystem.js" />
+    <Content Include="Scripts\Controllers\ListSystem.js" />
     <Content Include="Scripts\Libs\bootstrap-select.min.js" />
     <Content Include="Scripts\Libs\bootstrap-switch.min.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
     <Content Include="Scripts\Libs\d3.min.js" />
-    <Content Include="Scripts\Other\determSystem.js" />
+    <Content Include="Scripts\Libs\mustache.js" />
+    <Content Include="Scripts\Models\Element.js" />
+    <Content Include="Scripts\Models\System.js" />
     <Content Include="Scripts\Tests\determSystemTest.js" />
     <Content Include="Scripts\Other\ForFileUpload.js" />
     <Content Include="Scripts\Other\hashTable.js" />
@@ -109,7 +114,7 @@
     <Content Include="Scripts\Libs\jquery.uploadfile.min.js" />
     <Content Include="Scripts\Other\json.js" />
     <Content Include="Scripts\Libs\loader.min.js" />
-    <Content Include="Scripts\main.js" />
+    <Content Include="Scripts\app.js" />
     <Content Include="Scripts\Other\mask.js" />
     <Content Include="Scripts\Other\myui.js" />
     <Content Include="Scripts\Libs\qunit-1.14.0.js" />
@@ -149,9 +154,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Scripts\Controllers\" />
-    <Folder Include="Scripts\Models\" />
-    <Folder Include="Scripts\Views\" />
+    <Folder Include="Scripts\Views\Templates\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
