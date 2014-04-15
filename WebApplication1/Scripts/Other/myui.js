@@ -8,10 +8,7 @@ $(document).ready(function () {
         maskWidget("#mask", systemJson);
     });
 
-    $('#myWizard').wizard();
-    $('.btn-next').on('click', function () {
-        $('#myWizard').wizard('next', 'foo');
-    });
+    
 
     $('.systemElement').on('click', function () {
         $(this).siblings().removeClass('active');

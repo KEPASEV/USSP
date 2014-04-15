@@ -5,14 +5,12 @@
     }
 });
 require(['mustache',
-         'Controllers/AddSystem',
-         'Controllers/InfoSystem',
-         'Controllers/ListSystem'], function (mustache, AddSystem, InfoSystem, ListSystem) {
+         'jquery',         
+         'Libs/wizard',
+         'SystemsModule'], function (mustache, jquery, wizard, SystemsModule) {
 
-    var systems = [];
-    localStorage.systems = JSON.stringify(systems);
+    jquery('#myWizard').wizard();
 
-    AddSystem.start();
-    InfoSystem.start();
-    ListSystem.start();
+    SystemsModule.start();
+ 
 });

@@ -1,7 +1,20 @@
-﻿define(['Views/InfoSystemView'], function (InfoSystemView) {
+﻿define(['Views/InfoSystemView',
+        'Libs/wizard',
+        'jquery'], function (InfoSystemView, wizard, jquery) {
 
-    function start() {
-        InfoSystemView.render({ name: "system", goal: "myGoal" });
+    var currentSystem
+    function start(system) {
+        currentSystem = system;
+        InfoSystemView.render(system);
+        onNext();        
+    }
+
+    function onNext() {
+        jquery('#infoSystemModule')
+            .find('.btn-next').on("click", function (e) {
+                jquery('#myWizard').wizard('next', 'foo');
+                localStorage.currentSystem = JSON.stringify(currentSystem);
+            });
     }
 
     return {

@@ -1,13 +1,21 @@
 ﻿define(['jquery',
         'Views/AddSystemView',
-        'Models/System'], function (jquery, AddSystemView, System) {
+        'Models/System',
+        'Other/guidGenerator'], function (jquery, AddSystemView, System, guidGenerator) {
 
     var module, buttonAdd, inputName, inputGoal;
+    var currentSystemId;
 
-    function start() {
-        AddSystemView.render();
-        initModuleElements();
-        bindEvents();
+    function start(system) {
+        if (system) {
+            AddSystemView.render(system);
+            initModuleElements();
+            edit(system.id);
+        } else {
+            AddSystemView.render();
+            initModuleElements();
+            add();
+        }        
     }
 
     function initModuleElements() {
@@ -17,18 +25,15 @@
         inputGoal = module.find('textarea');
     }
 
-    function bindEvents() {
-        add();
-    }
-
     function add() {
         buttonAdd.on('click', function (e) {
             var systems = JSON.parse(localStorage.systems);
             
             var name = inputName.val();
-            var goal = inputGoal.innerText;
-
-            systems.push(new System({ name: name, goal: goal }));
+            var goal = inputGoal.val();
+            var id = guidGenerator.getGUID();
+            console.log(id);
+            systems.push(new System({id:id, name: name, goal: goal }));
             localStorage.systems = JSON.stringify(systems);
             require(['Controllers/ListSystem'], function (ListSystem) {
                 ListSystem.start();
@@ -38,14 +43,51 @@
             inputGoal.val('');
         });
     }
+            
+    function edit(systemId) {
+        currentSystemId = systemId;
+        buttonAdd.on('click', function (e) {
+            var systems = JSON.parse(localStorage.systems);
 
-    function edit() {
+            var name = inputName.val();
+            var goal = inputGoal.val();
+            var index;
+            for (var i = 0, len = systems.length; i < len; i++) {
+                if (systems[i].id == systemId) {
+                    systems[i].name = name;
+                    systems[i].goal = goal;
+                    index = i;
+                    break;
+                }
+            }
+            
+            require(['Controllers/InfoSystem'], function (InfoSystem) {
+                InfoSystem.start(systems[index]);
+            });
+            
+            localStorage.systems = JSON.stringify(systems);
+            require(['Controllers/ListSystem'], function (ListSystem) {
+                ListSystem.start();                         
+            });
+
+            inputName.val('').focus();
+            inputGoal.val('');
+            currentSystemId = undefined;
+            start();
+        });
     }
-
-    function remove() {
+            
+    function clearIfWasRemove(systemId) {
+        if (currentSystemId == systemId) {
+            inputName.val('').focus();
+            inputGoal.val('');
+            currentSystem = undefined;
+            start();
+        }        
     }
 
     return {
-        start:start
+        start: start,
+        clear: clearIfWasRemove
     };
 });

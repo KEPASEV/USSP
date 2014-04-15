@@ -101,6 +101,8 @@
     <Content Include="Scripts\Libs\mustache.js" />
     <Content Include="Scripts\Models\Element.js" />
     <Content Include="Scripts\Models\System.js" />
+    <Content Include="Scripts\Other\guidGenerator.js" />
+    <Content Include="Scripts\SystemsModule.js" />
     <Content Include="Scripts\Tests\determSystemTest.js" />
     <Content Include="Scripts\Other\ForFileUpload.js" />
     <Content Include="Scripts\Other\hashTable.js" />

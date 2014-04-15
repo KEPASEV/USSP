@@ -58,6 +58,7 @@
 			<div class="step-content">
                 <div class="step-pane active" id="step1">
                     <h2>Шаг 1 - Создание системы</h2>
+                    <div id="removeModalModule"></div>
                     <div class="row">
                         <div class="col-md-8">
                             <div id="addSystemModule"></div>
@@ -66,10 +67,6 @@
                         <div class="col-md-4">
                             <div id="listSystemModule"></div>
                         </div>
-                    </div>
-                    <div class="row col-md-12">                    
-                        
-                        
                     </div>
                 </div>
 				<div class="step-pane" id="step2">
@@ -352,7 +349,6 @@
                 </div>
             </div>
 		</div>
-
         <script data-main="../Scripts/app" src="../Scripts/require.js"></script>
         <script type="text/template" id="addSystemTemplate">
             <div class="panel panel-default">
@@ -361,9 +357,10 @@
                 </div>
                 <div class="panel-body">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Укажите название вашей системы" value={{name}}>
+                        <p class="bg-danger" hidden></p>
+                        <input type="text" class="form-control" placeholder="Укажите название вашей системы" value="{{name}}">
                         <textarea class="form-control" placeholder="Укажите цель вашей системы">{{goal}}</textarea>
-                        <button id="but" class="btn btn-block btn-success">Создать систему</button>
+                        <button class="btn btn-block btn-success">Создать систему</button>
                     </div>
                 </div>
             </div>
@@ -376,11 +373,56 @@
                 <div class="panel-body">
                     <ul class="list-group">
                         {{#.}}
-                        <li class="list-group-item">{{name}}</li>
+                        <li class="list-group-item">
+                            <div class="row">
+                                <p class="col-md-7">{{name}}</p>
+                                <input hidden value={{id}}>
+                                <div class="btn-group col-md-5" style="display:none">
+                                    <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                                </div>                            
+                            </div>
+                        </li>
                         {{/.}}
                     </ul>
                 </div>
             </div>
-       </script>               
+       </script>        
+        <script id="infoSystemTemplate" type="text/template">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Информация о системе</h3>
+                </div>
+                <div class="panel-body">
+                    <span>Название системы: {{name}}</span>
+                    <p>Цель: {{goal}}</p>
+                </div>
+                <div class="panel-footer">
+                    <button type="button" class="btn btn-success btn-next" value="next">
+                        Продолжить работу с системой
+                    </button>
+                </div>
+            </div>
+        </script>
+        <script type="text/template" id="removeModalTemplate">
+            <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Удаление системы</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p>Система "{{name}}" будет удалена со всеми данными без возможности восстановления.</p>                            
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default">Удалить</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
+                        </div>
+                    </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+            </div><!-- /.modal -->
+        </script>
+              
 	</body>
 

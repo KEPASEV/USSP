@@ -1,10 +1,21 @@
 ﻿define(['mustache', 'jquery'], function (Mustache, jquery) {
+    
     function render(parameters) {
-        jquery.get('../Scripts/Views/Templates/infoSystemTemplate.html',
-            function (template) {
-                var html = Mustache.to_html(template, parameters);
-                jquery('#infoSystemModule').html(html);
-            });
+        var template = jquery('#infoSystemTemplate').html();
+        var html = Mustache.to_html(template, parameters);
+        jquery('#infoSystemModule').html(html);
+        buttonRender(parameters);
+    }
+
+    function buttonRender(parameters) {
+        if (parameters) {
+            console.log(parameters);
+            jquery('#infoSystemModule')
+            .find('.btn-next').removeAttr("disabled");
+        } else {
+            jquery('#infoSystemModule')
+            .find('.btn-next').attr("disabled", "disabled");
+        }
     }
 
     return {
