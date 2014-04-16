@@ -1,9 +1,10 @@
 textarea {
     resize:none;
 }
-.list-group-item:hover {
+.list-group-item:hover, #states tr:hover {
     background:rgba(13, 138, 213, 0.1);
 }
+
 .selectedItem {
     background:rgba(0, 132, 211, 0.32);
 }
@@ -11,6 +12,7 @@ textarea {
 .bg-danger {
   background-color: rgba(238, 55, 52, 0.15);
 }
+
 .marginfix{
 	margin-top: 10px;
 	margin-bottom: 15px;

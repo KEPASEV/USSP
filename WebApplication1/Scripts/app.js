@@ -7,10 +7,11 @@
 require(['mustache',
          'jquery',         
          'Libs/wizard',
-         'SystemsModule'], function (mustache, jquery, wizard, SystemsModule) {
+         'SystemsModule',
+         'ElementsModule'], function (mustache, jquery, wizard, SystemsModule, ElementsModule) {
 
     jquery('#myWizard').wizard();
-
     SystemsModule.start();
+    ElementsModule.start();
  
 });
