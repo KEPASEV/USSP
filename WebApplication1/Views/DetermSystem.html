@@ -1,6 +1,6 @@
 ﻿<!DOCTYPE HTML>
 <html lang="ru" class="fuelux">
-	<head>
+<head>
 		<meta charset="utf-8">
 		<title>
 			Universal System Problem Solver
@@ -55,7 +55,7 @@
         </div>
         <!--WIZARD CONTENT-->
         <div class="step-content">
-            <div class="step-pane " id="step1">
+            <div class="step-pane active" id="step1">
                 <h2>Шаг 1 - Создание системы</h2>
                 <div id="removeModalModule"></div>
                 <div class="row">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="step-pane active" id="step2">
+            <div class="step-pane" id="step2">
                 <h2>Шаг 2 - Инициализация системы</h2>
                 <div id="addElementModule"></div>
                 <div id="listElementModule"></div>
@@ -179,8 +179,8 @@
                 </div>
         </div>
     </div>
-        <script data-main="../Scripts/app" src="../Scripts/require.js"></script>
-        <script type="text/template" id="addSystemTemplate">
+    <script data-main="../Scripts/app" src="../Scripts/require.js"></script>
+    <script type="text/template" id="addSystemTemplate">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Создание новой системы</h3>
@@ -195,7 +195,7 @@
                 </div>
             </div>
         </script>
-        <script type="text/template" id="listSystemTemplate">
+    <script type="text/template" id="listSystemTemplate">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Список систем</h3>
@@ -218,7 +218,7 @@
                 </div>
             </div>
         </script>
-        <script id="infoSystemTemplate" type="text/template">
+    <script id="infoSystemTemplate" type="text/template">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Информация о системе</h3>
@@ -234,241 +234,264 @@
                 </div>
             </div>
         </script>
-        <script type="text/template" id="removeModalTemplate">
-            <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4 class="modal-title">Удаление системы</h4>
-                        </div>
-                        <div class="modal-body">
-                            <p>Система "{{name}}" будет удалена со всеми данными без возможности восстановления.</p>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-default">Удалить</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
-        </script>
-        <script id="addElementTemplate" type="text/template">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Добавление элементов</h3>
+    <script type="text/template" id="removeModalTemplate">
+        <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title">Удаление системы</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>Система "{{name}}" будет удалена со всеми данными без возможности восстановления.</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default">Удалить</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Отмена</button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+    </script>
+    <script id="addElementTemplate" type="text/template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Добавление элементов</h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group" id="role" data-toggle="buttons">
+                    <label class="btn btn-primary active">
+                        <input type="radio" value="variable"> Переменная
+                    </label>
+                    <label class="btn btn-primary">
+                        <input type="radio" value="parameter"> Параметр
+                    </label>                            
                 </div>
-                <div class="panel-body">
-                    <div class="btn-group" id="role" data-toggle="buttons">
-                        <label class="btn btn-primary active">
-                            <input type="radio" value="variable"> Переменная
+                <div class="input-group">
+                    <input type="text" class="form-control" id="nameElement" placeholder="Введите название">
+                    <span class="input-group-btn">
+                        <select id="type" class="form-control" style="width:150px">
+                            <option value="number" selected>Числовой</option>
+                            <option value="nominal">Номинальный</option>
+                            <option value="time">Время</option>
+                        </select>
+                    </span>
+                </div>                    
+                <div class="input-group col-md-8">
+                    <div id="typeElementModule"></div>
+                    <div id="groupElementModule"></div>
+                </div>
+                <div class="input-group col-md-8">
+                    <h3><span class="label label-default">Комментарий</span></h3>
+                    <input type="text" class="form-control" id="comment" placeholder="Место для короткого комментария">                        
+                </div>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-block btn-success" role="button" id="addElement">
+                    Добавить
+                </button>
+            </div>
+        </div>
+    </script>
+    <script id="listElementTemplate" type="text/template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">Список элементов</h3>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <caption style="text-align:left"><h4>Параметры</h4></caption>
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Название</td>
+                            <td>Тип</td>                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <caption style="text-align:left"><h4>Переменные</h4></caption>
+                    <thead>
+                        <tr>
+                            <td>#</td>
+                            <td>Название</td>
+                            <td>Тип</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <button type="button" class="btn btn-success btn-next" value="next">
+                    Продолжить работу
+                </button>
+            </div>
+        </div>
+    </script>
+    <script id="numberTypeElementTemplate" type="text/template">
+        <div class="typePanel" id="number">
+            <div class="row col-md-12">
+                <h4><span class="label label-default col-md-8">Область определения</span></h4>
+                <p class="col-md-5" id="rangeOfDefenition">&#91 -&infin; ; +&infin; &#93</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4><span class="label label-default">Нижняя граница</span></h4>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-range="low" checked> минус бесконечность
                         </label>
-                        <label class="btn btn-primary">
-                            <input type="radio" value="parameter"> Параметр
-                        </label>                            
                     </div>
-                    <div class="input-group">
-                        <input type="text" class="form-control" id="nameElement" placeholder="Введите название">
-                        <span class="input-group-btn">
-                            <select id="type" class="form-control" style="width:150px">
-                                <option value="number" selected>Числовой</option>
-                                <option value="nominal">Номинальный</option>
-                                <option value="time">Время</option>
-                            </select>
-                        </span>
-                    </div>                    
-                    <div class="input-group col-md-8">
-                        <div id="typeElementModule"></div>
-                        <div id="groupElementModule"></div>
-                    </div>
-                    <div class="input-group col-md-8">
-                        <h3><span class="label label-default">Комментарий</span></h3>
-                        <input type="text" class="form-control" id="comment" placeholder="Место для короткого комментария">                        
-                    </div>
+                    <input type="hidden" class="form-control" data-range="low" name="lowRange" value="0" />
                 </div>
-                <div class="panel-footer">
-                    <button class="btn btn-block btn-success" role="button" id="addElement">
-                        Добавить
-                    </button>
+                <div class="col-md-6">
+                    <h4><span class="label label-default">Верхняя граница</span></h4>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox" data-range="high" checked> плюс бесконечность
+                        </label>
+                    </div>
+                    <input type="hidden" class="form-control" data-range="high" name="highRange" value="0" />
                 </div>
             </div>
-        </script>
-        <script id="listElementTemplate" type="text/template">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Список элементов</h3>
-                </div>
-                <div class="panel-body">
-
-                </div>
-                <div class="panel-footer">
-                    <button type="button" class="btn btn-success btn-next" value="next">
-                        Продолжить работу
-                    </button>
-                </div>
+        </div>
+    </script>
+    <script id="nominalTypeElementTemplate" type="text/template">
+        <div id="nominalTypeModule">
+            {{^currentState}}
+            <h4><span class="label label-default">Настройка значений</span></h4>
+            <div>                
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Введите значение" id="nameState" value="{{name}}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" id="addState" role="button">
+                            Добавить
+                        </button>
+                    </span>
+                </div>                    
+                <input type="text" class="form-control" placeholder="Место для короткого комментария" id="commentState">                    
+                {{/currentState}}
+                {{#currentState}}
+                <div class="input-group">                        
+                    <input type="text" class="form-control" placeholder="Введите значение" id="nameState"  value="{{name}}">
+                    <span class="input-group-btn">
+                        <button class="btn btn-success" id="addState" role="button">
+                            Сохранить
+                        </button>
+                    </span>
+                </div>                    
+                <input type="text" class="form-control" placeholder="Место для короткого комментария" id="commentState" value="{{comment}}">
+                <input type="text" hidden id="guidState" value="{{id}}">                    
+                {{/currentState}}
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Значение</th>
+                            <th>Комментарий</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="states">
+                        {{#states}}
+                        <tr>
+                            <td hidden>{{id}}</td>
+                            <td>{{index}}</td>
+                            <td>{{name}}</td>
+                            <td>{{comment}}</td>
+                            <td hidden>
+                                <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                                <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                            </td>
+                        </tr>
+                        {{/states}}
+                    </tbody>
+                </table>
             </div>
-        </script>
-        <script id="numberTypeElementTemplate" type="text/template">
-            <div class="typePanel" id="number">
-                <div class="row col-md-12">
-                    <h4><span class="label label-default col-md-8">Область определения</span></h4>
-                    <p class="col-md-5" id="rangeOfDefenition">&#91 -&infin; ; +&infin; &#93</p>
+        </div>
+    </script>
+    <script id="timeTypeElementTemplate" type="text/template">
+        <div id="TimeTypeModule">
+            <div class="typePanel" id="time">
+            <h4><span class="label label-default">Метод и единицы измерения</span></h4>
+            <div class="row">
+                <div class="col-md-6">
+                    <select>
+                        <option value="points">Отсчеты</option>
+                        <option value="duration">Длительность</option>
+                    </select>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <h4><span class="label label-default">Нижняя граница</span></h4>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" data-range="low" checked> минус бесконечность
-                            </label>
-                        </div>
-                        <input type="hidden" class="form-control" data-range="low" name="lowRange" value="0" />
-                    </div>
-                    <div class="col-md-6">
-                        <h4><span class="label label-default">Верхняя граница</span></h4>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" data-range="high" checked> плюс бесконечность
-                            </label>
-                        </div>
-                        <input type="hidden" class="form-control" data-range="high" name="highRange" value="0" />
-                    </div>
-                </div>
-            </div>
-        </script>
-        <script id="nominalTypeElementTemplate" type="text/template">
-            <div id="nominalTypeModule">
-                {{^currentState}}
-                <h4><span class="label label-default">Настройка значений</span></h4>
-                <div>                
-                    <div class="input-group">
-                        <input type="text" class="form-control" placeholder="Введите значение" id="nameState" value="{{name}}">
-                        <span class="input-group-btn">
-                            <button class="btn btn-success" id="addState" role="button">
-                                Добавить
-                            </button>
-                        </span>
-                    </div>                    
-                    <input type="text" class="form-control" placeholder="Место для короткого комментария" id="commentState">                    
-                    {{/currentState}}
-                    {{#currentState}}
-                    <div class="input-group">                        
-                        <input type="text" class="form-control" placeholder="Введите значение" id="nameState"  value="{{name}}">
-                        <span class="input-group-btn">
-                            <button class="btn btn-success" id="addState" role="button">
-                                Сохранить
-                            </button>
-                        </span>
-                    </div>                    
-                    <input type="text" class="form-control" placeholder="Место для короткого комментария" id="commentState" value="{{comment}}">
-                    <input type="text" hidden id="guidState" value="{{id}}">                    
-                    {{/currentState}}
-                    <table class="table table-condensed">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Значение</th>
-                                <th>Комментарий</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="states">
-                            {{#states}}
-                            <tr>
-                                <td hidden>{{id}}</td>
-                                <td>{{index}}</td>
-                                <td>{{name}}</td>
-                                <td>{{comment}}</td>
-                                <td hidden>
-                                    <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
-                                    <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
-                                </td>
-                            </tr>
-                            {{/states}}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </script>
-        <script id="timeTypeElementTemplate" type="text/template">
-            <div id="TimeTypeModule">
-                <div class="typePanel" id="time">
-                <h4><span class="label label-default">Метод и единицы измерения</span></h4>
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="col-md-6">
+                    <div data-panelfor="points">
                         <select>
-                            <option value="points">Отсчеты</option>
-                            <option value="duration">Длительность</option>
+                            <option value="date">Дата</option>
+                            <option value="tick">Тик</option>
                         </select>
                     </div>
-                    <div class="col-md-6">
-                        <div data-panelfor="points">
-                            <select>
-                                <option value="date">Дата</option>
-                                <option value="tick">Тик</option>
-                            </select>
-                        </div>
-                        <div data-panelfor="duration">
-                            <select>
-                                <option value="secund">Секунды</option>
-                                <option value="minute">Минуты</option>
-                                <option value="hour">Часы</option>
-                                <option value="day">Дни</option>
-                                <option value="Week">Недели</option>
-                            </select>
-                        </div>
+                    <div data-panelfor="duration">
+                        <select>
+                            <option value="secund">Секунды</option>
+                            <option value="minute">Минуты</option>
+                            <option value="hour">Часы</option>
+                            <option value="day">Дни</option>
+                            <option value="Week">Недели</option>
+                        </select>
                     </div>
                 </div>
             </div>
-            </div>
-        </script>
-        <script id="groupElementTemplate" type="text/template">
-            <div class="col-md-6">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Переменная</th>
-                            <th>Тип</th>
-                            <th>Комментарий</th>
-                            <th>Область определения</th>
-                        </tr>
-                    </thead>
-                    <tbody id="varRows">
-                        <tr class="element" data-role="variable">
-                            <td>0</td>
-                            <td class="varName">varName</td>
-                            <td>typeName</td>
-                            <td>description</td>
-                            <td>range</td>
-                            <td data-action="removeRow"> <span data-action="removeRow" style="cursor:default" class="glyphicon glyphicon-remove"></span> </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-6">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>#</th>
-                            <th>Параметр</th>
-                            <th>Тип</th>
-                            <th>Комментарий</th>
-                            <th>Область определения</th>
-                        </tr>
-                    </thead>
-                    <tbody id="paramRows">
-                        <tr class="element" data-role="parameter">
-                            <td>0</td>
-                            <td class="varName">varName</td>
-                            <td>typeName</td>
-                            <td>description</td>
-                            <td>range</td>
-                            <td data-action="removeRow"> <span data-action="removeRow" style="cursor:default" class="glyphicon glyphicon-remove"></span> </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+        </div>
+        </div>
     </script>
+    <script id="groupElementTemplate" type="text/template">
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Переменная</th>
+                        <th>Тип</th>
+                        <th>Комментарий</th>
+                        <th>Область определения</th>
+                    </tr>
+                </thead>
+                <tbody id="varRows">
+                    <tr class="element" data-role="variable">
+                        <td>0</td>
+                        <td class="varName">varName</td>
+                        <td>typeName</td>
+                        <td>description</td>
+                        <td>range</td>
+                        <td data-action="removeRow"> <span data-action="removeRow" style="cursor:default" class="glyphicon glyphicon-remove"></span> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Параметр</th>
+                        <th>Тип</th>
+                        <th>Комментарий</th>
+                        <th>Область определения</th>
+                    </tr>
+                </thead>
+                <tbody id="paramRows">
+                    <tr class="element" data-role="parameter">
+                        <td>0</td>
+                        <td class="varName">varName</td>
+                        <td>typeName</td>
+                        <td>description</td>
+                        <td>range</td>
+                        <td data-action="removeRow"> <span data-action="removeRow" style="cursor:default" class="glyphicon glyphicon-remove"></span> </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+</script>
 </body>
-
+</html>
