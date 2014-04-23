@@ -1,7 +1,7 @@
-﻿define(function () {
+﻿define(['Other/guidGenerator'], function (guidGenerator) {
     
     function Element(element) {
-        this.id = (element && element.id) || '';
+        this.id = guidGenerator.getGUID();
         this.name = (element && element.name) ||'';
         this.type = (element && element.type) || '';
         this.role = (element && element.role) || '';

@@ -1,7 +1,10 @@
 textarea {
     resize:none;
 }
-.list-group-item:hover, #states tr:hover {
+.list-group-item:hover,
+ #states tr:hover, 
+#parametersTable tbody tr:hover,
+#variablesTable tbody tr:hover {
     background:rgba(13, 138, 213, 0.1);
 }
 

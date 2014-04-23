@@ -3,7 +3,7 @@
 <head>
 		<meta charset="utf-8">
 		<title>
-			Universal System Problem Solver
+			Universal System Problem Solver 
 		</title>
 		<link href="../CSS/bootstrap.min.css" rel="stylesheet">
 		<link href="../CSS/bootstrap-select.css" rel="stylesheet">
@@ -17,7 +17,7 @@
         <![endif]-->
         <link href="../CSS/my.css" rel="stylesheet">
         
-	</head>
+</head>
 <body style="overflow:scroll">
     <div class="container">
         <!--NAVIGATION PANEL-->
@@ -55,7 +55,7 @@
         </div>
         <!--WIZARD CONTENT-->
         <div class="step-content">
-            <div class="step-pane active" id="step1">
+            <div class="step-pane" id="step1">
                 <h2>Шаг 1 - Создание системы</h2>
                 <div id="removeModalModule"></div>
                 <div class="row">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            <div class="step-pane" id="step2">
+            <div class="step-pane active" id="step2">
                 <h2>Шаг 2 - Инициализация системы</h2>
                 <div id="addElementModule"></div>
                 <div id="listElementModule"></div>
@@ -196,12 +196,12 @@
             </div>
         </script>
     <script type="text/template" id="listSystemTemplate">
-            <div class="panel panel-default">
-                <div class="panel-heading">
+        <div class="panel panel-default">
+            <div class="panel-heading">
                     <h3 class="panel-title">Список систем</h3>
                 </div>
-                <div class="panel-body">
-                    <ul class="list-group">
+            <div class="panel-body">
+                <ul class="list-group">
                         {{#.}}
                         <li class="list-group-item">
                             <div class="row">
@@ -215,9 +215,9 @@
                         </li>
                         {{/.}}
                     </ul>
-                </div>
             </div>
-        </script>
+        </div>
+    </script>
     <script id="infoSystemTemplate" type="text/template">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -276,11 +276,7 @@
                             <option value="time">Время</option>
                         </select>
                     </span>
-                </div>                    
-                <div class="input-group col-md-8">
-                    <div id="typeElementModule"></div>
-                    <div id="groupElementModule"></div>
-                </div>
+                </div>                                    
                 <div class="input-group col-md-8">
                     <h3><span class="label label-default">Комментарий</span></h3>
                     <input type="text" class="form-control" id="comment" placeholder="Место для короткого комментария">                        
@@ -298,31 +294,63 @@
             <div class="panel-heading">
                 <h3 class="panel-title">Список элементов</h3>
             </div>
-            <div class="panel-body">
-                <table class="table">
+            <div class="panel-body">             
+                <table class="table" id="parametersTable">
                     <caption style="text-align:left"><h4>Параметры</h4></caption>
                     <thead>
                         <tr>
                             <td>#</td>
                             <td>Название</td>
-                            <td>Тип</td>                            
+                            <td>Тип</td>
+                            <td>Комментарий</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody data-elementrole="parameter">
+                        {{#parameters}}
+                           <tr>
+                               <td hidden>{{id}}</td>
+                               <td>{{parametersNum}}</td>
+                               <td>{{name}}</td>
+                               <td>{{wrapForType}}</td>
+                               <td>{{comment}}</td>
+                               <td>
+                                   <div class="itemToolBox" hidden>
+                                       <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                                       <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                                   </div>
+                               </td>
+                           </tr>
+                        {{/parameters}}
                     </tbody>
                 </table>
-                <table class="table">
+                <table class="table" id="variablesTable">
                     <caption style="text-align:left"><h4>Переменные</h4></caption>
                     <thead>
                         <tr>
                             <td>#</td>
                             <td>Название</td>
                             <td>Тип</td>
+                            <td>Комментарий</td>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody data-elementrole="variable">
+                        {{#variables}}
+                        <tr>
+                            <td hidden>{{id}}</td>
+                            <td>{{variablesNum}}</td>
+                            <td>{{name}}</td>
+                            <td>{{wrapForType}}</td>
+                            <td>{{comment}}</td>
+                            <td>
+                                <div class="itemToolBox" hidden>
+                                    <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                                    <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                                </div>
+                            </td>
+                        </tr>
+                        {{/variables}}
                     </tbody>
-                </table>
+                </table>             
             </div>
             <div class="panel-footer">
                 <button type="button" class="btn btn-success btn-next" value="next">

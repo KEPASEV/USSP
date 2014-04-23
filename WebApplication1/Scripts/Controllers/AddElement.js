@@ -1,5 +1,6 @@
 ﻿define(['jquery',
-        'Views/AddElementView'], function (jquery, AddElementView) {
+        'Views/AddElementView',
+        'Models/Element'], function (jquery, AddElementView, Element) {
 
     var module, name, role, type, comment, addButton, typeModules;
 
@@ -25,31 +26,60 @@
         return currentRole;
     }
 
-    function bindEvents() {
-        typeSelect();
+    function bindEvents() {        
+        add();
     }
+                           
+    function add() {
+        addButton.on('click', function (e) {            
+            var nameElement = name.val();
+            var typeElement = type.val();
+            var roleElement = role.getRole();           
+            var commentElement = comment.val();
 
-    function typeSelect() {
-        type.on('change', function () {
-            var currentType = type.val();
-            typeSettingStart(currentType);
+            var newElement = new Element({
+                name: nameElement,
+                type: typeElement,
+                role: roleElement,
+                comment: commentElement
+            });
+            
+            addNewElementInLocalStorage(newElement);
+
+            clearInputs();
+            name.focus();
+            require(['Controllers/ListElement'], function (ListElement) {
+                ListElement.start();
+            })
         });
     }
 
-    function typeSettingStart(type) {
-        
-        if (type == "number") {
-            typeModules.empty();
-        } else if (type == "nominal") {            
-            require(['Controllers/AddNominalTypeState'],
-                function (AddNominalTypeState) {
-                    localStorage.currentStates = JSON.stringify({ currentState: undefined, states:[]});
-                    AddNominalTypeState.start();
-                }
-            )
-        } else if (type == "time") {
-            typeModules.empty();
+    function getCurrentElements() {
+        var currentElements;
+        if (localStorage.currentElements) {
+            currentElements = JSON.parse(localStorage.currentElements);
+        } else {
+            currentElements = {};
+            currentElements.parameters = [];
+            currentElements.variables = [];
         }
+        return currentElements;
+    }
+            
+    function addNewElementInLocalStorage(element) {
+        var currentElements = getCurrentElements();
+        if (element && element.role == 'parameter') {
+            currentElements.parameters.push(element);
+        } else if (element && element.role == 'variable') {
+            currentElements.variables.push(element);
+        }
+        localStorage.currentElements = JSON.stringify(currentElements);
+    }
+
+    function clearInputs() {
+        name.val('');
+        type.val('number');
+        comment.val('');
     }
 
     return {
