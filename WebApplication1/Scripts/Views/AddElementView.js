@@ -6,13 +6,18 @@
         var template = jquery('#addElementTemplate').html();
         var html = Mustache.to_html(template, parameters);
         jquery('#addElementModule').html(html);
-        addButtonRender();
+        addButtonRender(parameters);
     }
 
-    function addButtonRender() {
+    function addButtonRender(parameters) {
         var elementName = jquery('#nameElement');
-        var addButton = jquery('#addElement')
+        var addButton = jquery('#addElement');        
+        if (parameters) {
+            addButton.text('Сохранить изменения');
+        } else {
+            addButton.text('Добавить')
             .attr('disabled', 'disabled');
+        }        
         elementName.on('keyup', function (e) {
             if (elementName.val()) {
                 addButton.removeAttr('disabled');

@@ -95,7 +95,9 @@
     }
 
     function editElement(element) {
-        
+        require(['Controllers/AddElement'], function (AddElement) {
+            AddElement.start(element);
+        });
     }
 
     function getElement(elementId, role) {
@@ -115,7 +117,8 @@
     }
 
     return {
-        start: start
+        start: start,
+        removeElement: removeElement
     };
 
 });
