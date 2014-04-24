@@ -1,6 +1,12 @@
 textarea {
     resize:none;
 }
+#parametersTable, #variablesTable {
+table-layout:fixed;
+word-break:break-all;
+
+}
+
 .list-group-item:hover,
  #states tr:hover, 
 #parametersTable tbody tr:hover,
