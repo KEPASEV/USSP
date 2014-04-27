@@ -1,4 +1,6 @@
-﻿define(['jquery', 'Views/ListELementView'], function (jquery, ListElementView) {
+﻿define(['jquery',
+        'Views/ListELementView',
+        'Libs/wizard', ], function (jquery, ListElementView, Wizard) {
 
     var module, parametersBody, variablesBody;
     var currentElements, currentElement;
@@ -14,6 +16,7 @@
         module = jquery('#listElementModule');
         parametersBody = module.find('#parametersTable tbody');
         variablesBody = module.find('#variablesTable tbody');
+        onNext();
     }
 
     function getData() {        
@@ -60,7 +63,7 @@
                     removeElement(element);
                 }
             }
-        );
+        );        
     }
     
     function getAction(elem) {
@@ -114,6 +117,13 @@
             }
         }
         return undefined;
+    }
+
+    function onNext() {
+        module.find('.btn-next')
+            .on("click", function (e) {                
+                jquery('#myWizard').wizard('next', 'foo');              
+            });
     }
 
     return {

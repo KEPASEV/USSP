@@ -51,6 +51,9 @@
                 <li data-target="#step4">
                     <span class="badge">4</span>Шаг 4<span class="chevron"></span>
                 </li>
+                <li data-target="#step5">
+                    <span class="badge">5</span>Шаг 5<span class="chevron"></span>
+                </li>
             </ul>
         </div>
         <!--WIZARD CONTENT-->
@@ -68,7 +71,7 @@
                     </div>
                 </div>
             </div>
-            <div class="step-pane active" id="step2">
+            <div class="step-pane" id="step2">
                 <h2>Шаг 2 - Инициализация системы</h2>
                 <div id="addElementModule"></div>
                 <div id="listElementModule"></div>
@@ -118,8 +121,13 @@
                         <button type="button" class="btn-lg btn-next" value="next">Дальше</button>
                     </div>
                 </div>
-            <div class="step-pane" id="step4">
-                    <h2>Шаг 4 - Определение системы с поведением</h2>
+            <div id="step4" class="step-pane active">
+                <h2>Шаг 4 - Определение функции абстрагирования</h2>
+                <div id="dataGroupModule"></div>
+                
+            </div>
+            <div class="step-pane" id="step5">
+                    <h2>Шаг 5 - Определение системы с поведением</h2>
                     <div id="mask">
                         <div id="maskWidget" class="row">
                             <div class="panel panel-default">
@@ -219,7 +227,7 @@
         </div>
     </script>
     <script id="infoSystemTemplate" type="text/template">
-            <div class="panel panel-default">
+        <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">Информация о системе</h3>
                 </div>
@@ -232,8 +240,8 @@
                         Продолжить работу с системой
                     </button>
                 </div>
-            </div>
-        </script>
+        </div>
+    </script>
     <script type="text/template" id="removeModalTemplate">
         <div class="modal fade" id="removeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -476,53 +484,54 @@
         </div>
         </div>
     </script>
-    <script id="groupElementTemplate" type="text/template">
-        <div class="col-md-6">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Переменная</th>
-                        <th>Тип</th>
-                        <th>Комментарий</th>
-                        <th>Область определения</th>
-                    </tr>
-                </thead>
-                <tbody id="varRows">
-                    <tr class="element" data-role="variable">
-                        <td>0</td>
-                        <td class="varName">varName</td>
-                        <td>typeName</td>
-                        <td>description</td>
-                        <td>range</td>
-                        <td data-action="removeRow"> <span data-action="removeRow" style="cursor:default" class="glyphicon glyphicon-remove"></span> </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div class="col-md-6">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Параметр</th>
-                        <th>Тип</th>
-                        <th>Комментарий</th>
-                        <th>Область определения</th>
-                    </tr>
-                </thead>
-                <tbody id="paramRows">
-                    <tr class="element" data-role="parameter">
-                        <td>0</td>
-                        <td class="varName">varName</td>
-                        <td>typeName</td>
-                        <td>description</td>
-                        <td>range</td>
-                        <td data-action="removeRow"> <span data-action="removeRow" style="cursor:default" class="glyphicon glyphicon-remove"></span> </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-</script>
+    <script id="dataGroupTemplate" type="text/template">
+        <div class="panel panel-default">
+            <div class="panel panel-heading">
+                <h3>Данные</h3>
+            </div>
+            <div id="dataTable" class="panel panel-body">
+                <div>
+                    <table class="table table-bordered">
+                        <thead>
+                            {{#parameters}}
+                            <tr><th>{{name}}</th></tr>
+                            {{/parameters}}                            
+                            <tr><th>Отсчеты</th></tr>
+                            {{#variables}}
+                            <tr><th>{{name}}</th></tr>
+                            {{/variables}}
+                        </thead>
+                    </table>
+                </div>
+                <div>
+                    <table class="table table-bordered">
+                        <tbody>
+                            {{#parameters}}
+                                <tr>
+                                    {{#value}}
+                                    <td>{{.}}</td>
+                                    {{/value}}
+                                </tr>
+                            {{/parameters}}  
+                            
+                            <tr>
+                                {{#ticks}}
+                                    <td>{{.}}</td>
+                                {{/ticks}}
+                            </tr>
+                            
+                            {{#variables}}
+                            <tr>
+                                {{#value}}
+                                <td>{{.}}</td>
+                                {{/value}}
+                            </tr>
+                            {{/variables}}  
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>        
+    </script>    
 </body>
 </html>

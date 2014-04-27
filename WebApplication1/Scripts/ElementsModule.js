@@ -1,7 +1,7 @@
 ﻿define(['Controllers/AddElement',
         'Controllers/ListElement'], function (AddElement, ListElement) {
 
-    function start() {        
+    function start() {
         AddElement.start();
         ListElement.start();
     }

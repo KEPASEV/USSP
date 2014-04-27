@@ -8,10 +8,47 @@ require(['mustache',
          'jquery',         
          'Libs/wizard',
          'SystemsModule',
-         'ElementsModule'], function (mustache, jquery, wizard, SystemsModule, ElementsModule) {
+         'ElementsModule',
+         'GroupsModule'],
+         function (mustache, jquery, wizard, SystemsModule, ElementsModule, GroupsModule) {
 
-    jquery('#myWizard').wizard();
+             jquery('#myWizard').wizard();
+             localStorage.currentElements = JSON.stringify({
+                 parameters: [
+                     {
+                         id: "021314",
+                         name: "nameElement",
+                         type: "number",
+                         role: 'parameter',
+                         comment: "commentElement"
+                     },
+                     {
+                         id: "021315",
+                         name: "nameElement",
+                         type: "number",
+                         role: 'parameter',
+                         comment: "commentElement"
+                     }
+                 ],
+                 variables: [
+                     {
+                         id: "021317",
+                         name: "nameElement",
+                         type: "number",
+                         role: 'variable',
+                         comment: "commentElement"
+                     },
+                     {
+                         id: "021318",
+                         name: "nameElement",
+                         type: "number",
+                         role: 'variable',
+                         comment: "commentElement"
+                     }
+                 ]
+             });
     SystemsModule.start();
     ElementsModule.start();
+    GroupsModule.start();
  
 });

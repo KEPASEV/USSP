@@ -4,11 +4,10 @@ textarea {
 #parametersTable, #variablesTable {
 table-layout:fixed;
 word-break:break-all;
-
 }
 
 .list-group-item:hover,
- #states tr:hover, 
+#states tr:hover, 
 #parametersTable tbody tr:hover,
 #variablesTable tbody tr:hover {
     background:rgba(13, 138, 213, 0.1);
@@ -27,17 +26,28 @@ word-break:break-all;
 	margin-bottom: 15px;
 }
 
-#containerForValues {
+#containerForValues,
+#dataTable div:last-child {
+    table-layout:fixed;
     overflow-x:scroll;
     width:80%;
 }
 
-#containerForValues .values td:hover {
+#containerForValues .values td,
+#dataTable div:last-child td {    
+   max-width:60px;
+    min-width:60px;
+    overflow:hidden;
+    
+}
+
+#containerForValues .values td:hover,
+#dataTable div:last-child td:hover {
     background-color: #dff3ff;
 }
 
-
-#containerForHeaders{
+#containerForHeaders,
+#dataTable div:first-child{
     float:left;
     width:20%;
     overflow-x:hidden;
@@ -45,7 +55,7 @@ word-break:break-all;
     border-spacing:0;
 }
 
-#containerForHeaders th {
+#containerForHeaders th, #dataTable div:first-child th {
     border-bottom-width:1px;
 }
 #maskWidget  td {
