@@ -6,7 +6,8 @@
 
                 createArrWithDataAndPushInLocalStorage();
                 DataGroup.start();
-                
+                ListGroup.start();
+                AddGroup.start();
             }
 
             function createArrWithDataAndPushInLocalStorage(){

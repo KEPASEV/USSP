@@ -109,6 +109,7 @@
     <Content Include="Scripts\Libs\d3.min.js" />
     <Content Include="Scripts\Libs\mustache.js" />
     <Content Include="Scripts\Models\Element.js" />
+    <Content Include="Scripts\Models\Group.js" />
     <Content Include="Scripts\Models\State.js" />
     <Content Include="Scripts\Models\System.js" />
     <Content Include="Scripts\Other\guidGenerator.js" />

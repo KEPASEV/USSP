@@ -1,7 +1,9 @@
 textarea {
     resize:none;
 }
-#parametersTable, #variablesTable {
+#parametersTable,
+#variablesTable,
+#addGroupModule table {
 table-layout:fixed;
 word-break:break-all;
 }
@@ -33,6 +35,8 @@ word-break:break-all;
     width:80%;
 }
 
+
+
 #containerForValues .values td,
 #dataTable div:last-child td {    
    max-width:60px;
@@ -42,7 +46,8 @@ word-break:break-all;
 }
 
 #containerForValues .values td:hover,
-#dataTable div:last-child td:hover {
+.hoverLight
+{
     background-color: #dff3ff;
 }
 
@@ -53,6 +58,11 @@ word-break:break-all;
     overflow-x:hidden;
     border-collapse:collapse;
     border-spacing:0;
+}
+
+.inputNumber 
+{
+    width:100px;
 }
 
 #containerForHeaders th, #dataTable div:first-child th {

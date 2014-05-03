@@ -16,32 +16,39 @@ require(['mustache',
              localStorage.currentElements = JSON.stringify({
                  parameters: [
                      {
-                         id: "021314",
-                         name: "nameElement",
+                         id: "021319s",
+                         name: "p1",
                          type: "number",
                          role: 'parameter',
                          comment: "commentElement"
                      },
                      {
-                         id: "021315",
-                         name: "nameElement",
+                         id: "021318",
+                         name: "p2",
                          type: "number",
                          role: 'parameter',
                          comment: "commentElement"
                      }
                  ],
-                 variables: [
+                 variables: [                     
                      {
-                         id: "021317",
-                         name: "nameElement",
+                         id: "021314",
+                         name: "v1",
                          type: "number",
                          role: 'variable',
                          comment: "commentElement"
                      },
                      {
-                         id: "021318",
-                         name: "nameElement",
-                         type: "number",
+                         id: "021315",
+                         name: "v2",
+                         type: "nominal",
+                         role: 'variable',
+                         comment: "commentElement"
+                     },
+                     {
+                         id: "021316",
+                         name: "v3",
+                         type: "time",
                          role: 'variable',
                          comment: "commentElement"
                      }

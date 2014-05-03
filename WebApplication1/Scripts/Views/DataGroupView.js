@@ -5,6 +5,7 @@
         var template = jquery('#dataGroupTemplate').html();
         var html = Mustach.to_html(template, wrapDataToRender(data));        
         jquery('#dataGroupModule').html(html);
+        onHoverTr();
     }
 
     function wrapDataToRender(data) {
@@ -13,6 +14,11 @@
             data.ticks[i] = i + 1;
         }
         return data;
+    }
+
+    function onHoverTr() {
+        var thead = jquery('#dataTable thead .hoverLight');
+        var tbody = jquery('#dataTable tbody .hoverLight');        
     }
 
     return {

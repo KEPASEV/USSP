@@ -2,10 +2,8 @@
         'Views/DataGroupView'], function (jquery, DataGroupView) {
 
     function start() {
-        var data = getData();
-        console.log(data);
+        var data = getData();        
         DataGroupView.render(data);
-
     }
 
     function getData() {

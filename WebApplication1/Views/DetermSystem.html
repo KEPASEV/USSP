@@ -124,7 +124,8 @@
             <div id="step4" class="step-pane active">
                 <h2>Шаг 4 - Определение функции абстрагирования</h2>
                 <div id="dataGroupModule"></div>
-                
+                <div id="addGroupModule"></div>
+                <div id="listGroupModule"></div>                
             </div>
             <div class="step-pane" id="step5">
                     <h2>Шаг 5 - Определение системы с поведением</h2>
@@ -498,7 +499,7 @@
                             {{/parameters}}                            
                             <tr><th>Отсчеты</th></tr>
                             {{#variables}}
-                            <tr><th>{{name}}</th></tr>
+                            <tr data-var={{id}}><th>{{name}}</th></tr>
                             {{/variables}}
                         </thead>
                     </table>
@@ -521,7 +522,7 @@
                             </tr>
                             
                             {{#variables}}
-                            <tr>
+                            <tr data-var={{id}}>
                                 {{#value}}
                                 <td>{{.}}</td>
                                 {{/value}}
@@ -531,7 +532,229 @@
                     </table>
                 </div>
             </div>
-        </div>        
+        </div>                
     </script>    
+    <script id="listGroupTemplate" type="text/template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Абстрактные значения</h3>
+            </div>
+            <div class="panel-body">
+                <div>
+                    <table class="table table-striped">
+                        <thead >
+                            <tr>
+                                <th>#</th>
+                                <th>Название</th>
+                                <th>Границы</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="panel-footer">
+            </div>
+        </div>
+    </script>
+    <script id="addGroupTemplate" type="text/template">
+        <div class="panel panel-default">
+            <div class="panel-heading row">
+                <h3>Добавить абстрактное значение для:</h3>
+                <select class="col-md-4">
+                    {{#variables}}
+                    <option value={{id}}>{{name}}</option>
+                    {{/variables}}
+                </select>                
+            </div>
+            <div class="panel-body">
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Введите значение" id="nameGroup" value="{{name}}">
+                    <span class="input-group-btn">
+                        <button id="addGroup" class="btn btn-success">
+                            Добавить
+                        </button>
+                    </span>
+                </div>                    
+                <table class="table table-striped" >
+                    <thead>
+                        <tr>
+                            <th style="width:5%">#</th>
+                            <th style="width:25%">Название</th>
+                            <th style ="width:70%">Границы</th>
+                        </tr>
+                    </thead>
+                    <tbody id="determAbstractValModule">
+                    </tbody>
+                </table>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-success btn-block">Сохранить</button>
+            </div>
+        </div>
+    </script>
+    <script id="numberRangeDeterm" type="text/template">
+            {{#currentElement.groups}}
+            <tr>
+                <td>{{num}}</td>
+                <td>
+                {{^forEdit}}
+                    {{name}}
+                {{/forEdit}}
+                {{#forEdit}}
+                  <input type="text" class="form-control"  name="{{id}}" value={{name}} />
+                 {{/forEdit}}
+                </td>
+                <td>
+                    
+                    {{^range}}
+                    <div class="row" id={{id}}>
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <input type="number" id="" class="form-control low" />
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="selectSign lowSign" id="" data-width="70">
+                                        <option value="<"><</option>
+                                        <option value="<="><=</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="h3" style="overflow-x:auto;overflow-y:hidden">
+                                        <span class="label label-info">{{name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5" >
+                                    <div class="h3" style="overflow-x: auto;overflow-y:hidden">
+                                        <span class="label label-info">{{name}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <select class="selectSign highSign" id="" data-width="70">
+                                        <option value="<"><</option>
+                                        <option value="<="><=</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-5">
+                                    <input type="number" id="" class="form-control high" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="groupToolBox col-md-1">
+                            <input type="text" value={{id}} hidden>
+                            <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                            <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </div>
+                    {{/range}}
+                    
+                    {{#range}}
+                    <div class="row">
+                        <div class="col-md-11">
+                            <div class="row">
+                                <div class="col-md-5 h3">
+                                    <span class="label label-info">{{low}}</span>
+                                </div>
+                                <div class="col-md-2 h3">
+                                    <span class="">{{lowSign}}</span>
+                                </div>
+                                <div class="col-md-5 h3">
+                                    <div class="h3" style="overflow-x:auto;overflow-y:hidden">
+                                        <span class="label label-info">{{name}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <div class="h3" style="overflow-x: auto;overflow-y:hidden">
+                                        <span class="label label-info">{{name}}</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-2 h3">
+                                    <span class="">{{highSign}}</span>
+                                </div>
+                                <div class="col-md-5 h3">
+                                    <span class="label label-info">{{high}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="groupToolBox col-md-1">
+                            <input type="text" value={{id}} hidden>
+                            <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                            <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                        </div>
+                    </div>
+                    {{/range}}
+                </td>
+            </tr>
+            {{/currentElement.groups}}            
+    </script>
+    <script id="nominalRangeDeterm" type="text/template">
+        <div>
+            <div class="input-group">
+                <input type="text" class="form-control" placeholder="Введите значение" id="nameGroup" value="{{name}}">
+                <span class="input-group-btn">
+                    <button class="btn btn-success" id="addGroup" role="button">
+                        Добавить
+                    </button>
+                </span>
+            </div>                                          
+            <div>
+                <select>
+                    <option>item</option>
+                    <option>item</option>
+                    <option>item</option>
+                    <option>item</option>
+                    <option>item</option>
+                    <option>item</option>
+                    <option>item</option>
+                </select>
+                                        
+                    <button class="btn btn-success" id="addGroup" role="button">
+                        Добавить
+                    </button>
+                                        
+            </div>                                          
+        </div>
+    </script>
+    <script id="timeRangeDeterm" type="text/template">
+        <div class="row">
+            <div class="col-md-2">
+            <input type="text" class="form-control" />
+            </div>
+            <div class="col-md-1">
+            <select>
+                <option> < </option>
+                <option> > </option>
+                <option> <= </option>
+                <option> >= </option>
+            </select>
+            </div>
+            <div class="col-md-2">
+            <span></span>
+            </div>
+            <div class="col-md-1">
+            <select>
+                <option> < </option>
+                <option> > </option>
+                <option> <= </option>
+                <option> >= </option>
+            </select>
+            </div>
+            <div class="col-md-2">
+            <input type="text" class="form-control" />
+            </div>
+            <div class="col-md-1">
+            <button class="btn btn-block">
+                Сохранить
+            </button>
+            </div>
+        </div>
+    </script>
 </body>
 </html>
