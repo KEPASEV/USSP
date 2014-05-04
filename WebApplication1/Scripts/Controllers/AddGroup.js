@@ -7,7 +7,7 @@
     var currentElement;
     
 
-    function start(forEdit) {
+    function start() {
         var data = getData();
         AddGroupView.render(data);
         initNoduleElements();
@@ -29,17 +29,20 @@
     }
         
     function onSelectCurrentElement() {
+        var id;
         currentElementId.on('change', function () {
             var data = getData();
             for (var i = 0, len = data.variables.length; i < len; i++) {
                 if (data.variables[i].id === currentElementId.val()) {
+                    id=currentElementId.val();
                     data.currentElement = data.variables[i];
                     localStorage.elementsWithData = JSON.stringify(data);
                     break;
                 }
             }
             
-            start();
+            AddGroupView.select(data);
+            onToolBoxClick();
         });
         
     }

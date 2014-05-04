@@ -5,9 +5,14 @@
     function render(data) {
         var template = jquery('#addGroupTemplate').html();
         var html = Mustache.to_html(template, wrapForRender(data));
-        jquery('#addGroupModule').html(html);
-        
+        jquery('#addGroupModule').html(html);        
         onSelectVar();
+        determAbstractValModule(data);
+        renderSelect();
+    
+    }
+
+    function selectHandler(data) {
         determAbstractValModule(data);
         renderSelect();
     }
@@ -64,7 +69,9 @@
     }
 
     return {
-        render: render        
+        render: render,
+        select:selectHandler
+
     }
 
 });
