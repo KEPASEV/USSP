@@ -1,6 +1,7 @@
 ﻿define(['mustache',
         'jquery',
-        'Libs/bootstrap-select.min'], function (Mustache, jquery, bootstrapSelect ) {
+        'Libs/bootstrap-select.min',
+        'Libs/lodash.compat.min'], function (Mustache, jquery, bootstrapSelect, lodash ) {
 
     function render(data) {
         var template = jquery('#addGroupTemplate').html();
@@ -61,16 +62,51 @@
         if (data &&
             data.currentElement &&
             data.currentElement.type) {
+            data = getUniqueValues(data);
             var type = data.currentElement.type;            
             var template = jquery('#' + type + 'RangeDeterm').html();
-            var html = Mustache.to_html(template, data);
+            var html = Mustache.to_html(template,wrapForRender (data));
             jquery('#determAbstractValModule').html(html);
+            renderItemToolBox();
         }
+    }
+
+    function renderItemToolBox() {
+        
+        jquery('.list-group-item')
+            .mouseenter(function () {
+                jquery(this).find('.itemToolBox').show();
+            })
+            .mouseleave(function () {
+                jquery(this).find('.itemToolBox').hide();
+            });
+    }
+
+    function getUniqueValues(data) {
+        if (data.currentElement.type == "nominal") {
+            if (data.currentElement) {
+                if (!data.currentElement.uniqVal) {
+                    data.currentElement.uniqVal = [];
+                    data.currentElement.uniqValPersist = [];
+                    data.currentElement.uniqVal = lodash.uniq(data.currentElement.value);
+                    data.currentElement.uniqValPersist = lodash.uniq(data.currentElement.value);
+                    var index = lodash.findIndex(data.variables, function(v){
+                        return v.id == data.currentElement.id;
+                    });
+                    data.variables[index].uniqVal = [];
+                    data.variables[index].uniqValPersist = [];
+                    data.variables[index].uniqVal = lodash.uniq(data.currentElement.value);
+                    data.variables[index].uniqValPersist = lodash.uniq(data.currentElement.value);
+                    localStorage.elementsWithData = JSON.stringify(data);
+                }                
+            }            
+        }
+        return data;
     }
 
     return {
         render: render,
-        select:selectHandler
+        select: selectHandler
 
     }
 

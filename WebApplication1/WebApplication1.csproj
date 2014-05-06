@@ -107,6 +107,7 @@
     <Content Include="Scripts\Libs\bootstrap-switch.min.js" />
     <Content Include="Scripts\Libs\bootstrap.min.js" />
     <Content Include="Scripts\Libs\d3.min.js" />
+    <Content Include="Scripts\Libs\lodash.compat.min.js" />
     <Content Include="Scripts\Libs\mustache.js" />
     <Content Include="Scripts\Models\Element.js" />
     <Content Include="Scripts\Models\Group.js" />

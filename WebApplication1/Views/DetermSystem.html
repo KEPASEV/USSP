@@ -608,7 +608,6 @@
                  {{/forEdit}}
                 </td>
                 <td>
-                    
                     {{^range}}
                     <div class="row" id={{id}}>
                         <div class="col-md-11">
@@ -652,7 +651,6 @@
                         </div>
                     </div>
                     {{/range}}
-                    
                     {{#range}}
                     <div class="row">
                         <div class="col-md-11">
@@ -695,32 +693,80 @@
             {{/currentElement.groups}}            
     </script>
     <script id="nominalRangeDeterm" type="text/template">
-        <div>
-            <div class="input-group">
-                <input type="text" class="form-control" placeholder="Введите значение" id="nameGroup" value="{{name}}">
-                <span class="input-group-btn">
-                    <button class="btn btn-success" id="addGroup" role="button">
-                        Добавить
-                    </button>
-                </span>
-            </div>                                          
-            <div>
-                <select>
-                    <option>item</option>
-                    <option>item</option>
-                    <option>item</option>
-                    <option>item</option>
-                    <option>item</option>
-                    <option>item</option>
-                    <option>item</option>
-                </select>
-                                        
-                    <button class="btn btn-success" id="addGroup" role="button">
-                        Добавить
-                    </button>
-                                        
-            </div>                                          
-        </div>
+        {{#currentElement}}            
+        {{#groups}}
+        <tr>
+            <td>{{num}}</td>
+            <td>
+                {{^forEditStates}}
+                {{name}}
+                {{/forEditStates}}
+                {{#forEditStates}}
+                <input type="text" class="form-control" name="{{id}}" value={{name}} />
+                {{/forEditStates}}
+            </td>            
+            <td>
+                {{#forEditStates}}
+                <div class="row" id={{id}}>
+                    <div class="col-md-11">
+                        <div class="input-group">
+                            <input type="text" class="form-control" placeholder="Введите значение" id="nameState" />
+                            <span class="input-group-btn">
+                                <button class="btn btn-success addState" data-id="{{id}}" role="button">
+                                    Добавить
+                                </button>
+                            </span>
+                        </div>
+                        <select>
+                            {{#uniqVal}}
+                            <option>{{.}}</option>
+                            {{/uniqVal}}
+                        </select>
+                        <ul class="list-group">
+                            {{#states}}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <p class="col-md-11">{{.}}</p>
+                                    <div class="itemToolBox" hidden>                                        
+                                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                                    </div>                                    
+                                </div>
+                            </li>
+                            {{/states}}
+                        </ul>
+                    </div>
+                    <div class="groupToolBox col-md-1">
+                        <input type="text" value={{id}} hidden>
+                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+                {{/forEditStates}}                     
+                
+                {{#range}}
+                <div class="row" id={{id}}>
+                    <div class="col-md-11">
+                        <ul class="list-group">
+                            {{#states}}
+                            <li class="list-group-item">
+                                <div class="row">
+                                    <p class="col-md-7">{{.}}</p>
+                                </div>
+                            </li>
+                            {{/states}}
+                        </ul>
+                    </div>
+                    <div class="groupToolBox col-md-1">
+                        <input type="text" value={{id}} hidden>
+                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+                {{/range}}                     
+                </td>
+        </tr>
+        {{/groups}}
+        {{/currentElement}}
     </script>
     <script id="timeRangeDeterm" type="text/template">
         <div class="row">
