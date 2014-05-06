@@ -26,7 +26,7 @@
         onSelectCurrentElement();
         add();
         onToolBoxClick();
-        
+        onNext();
     }
         
     function onSelectCurrentElement() {
@@ -98,7 +98,7 @@
                     currentElement = data.variables[i];
                 }
             }
-            if (currentElement.type == "number") {
+            if (currentElement.type == "number" || currentElement.type == "time") {
                 action = getAction(this);
                 groupId = jquery(this)
                     .siblings()
@@ -375,6 +375,13 @@
             data = JSON.parse(localStorage.elementsWithData);
         }
         return data;
+    }
+
+    function onNext() {
+        module.find('.btn-next')
+            .on("click", function (e) {
+                jquery('#myWizard').wizard('next', 'foo');
+            });
     }
 
     return {

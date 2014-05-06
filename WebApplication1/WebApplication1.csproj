@@ -101,6 +101,7 @@
     <Content Include="Scripts\Controllers\ListElement.js" />
     <Content Include="Scripts\Controllers\ListGroup.js" />
     <Content Include="Scripts\Controllers\ListSystem.js" />
+    <Content Include="Scripts\Controllers\AddMask.js" />
     <Content Include="Scripts\ElementsModule.js" />
     <Content Include="Scripts\GroupsModule.js" />
     <Content Include="Scripts\Libs\bootstrap-select.min.js" />
@@ -109,8 +110,11 @@
     <Content Include="Scripts\Libs\d3.min.js" />
     <Content Include="Scripts\Libs\lodash.compat.min.js" />
     <Content Include="Scripts\Libs\mustache.js" />
+    <Content Include="Scripts\MaskModule.js" />
     <Content Include="Scripts\Models\Element.js" />
     <Content Include="Scripts\Models\Group.js" />
+    <Content Include="Scripts\Models\Mask.js" />
+    <Content Include="Scripts\Models\SelectedVar.js" />
     <Content Include="Scripts\Models\State.js" />
     <Content Include="Scripts\Models\System.js" />
     <Content Include="Scripts\Other\guidGenerator.js" />
@@ -136,6 +140,7 @@
     <Content Include="Scripts\Libs\wizard.js" />
     <Content Include="Scripts\Views\AddElementView.js" />
     <Content Include="Scripts\Views\AddGroupView.js" />
+    <Content Include="Scripts\Views\AddMaskView.js" />
     <Content Include="Scripts\Views\AddNominalTypeStateView.js" />
     <Content Include="Scripts\Views\AddSystemView.js" />
     <Content Include="Scripts\Views\AddTimeTypeViews.js" />

@@ -1,17 +1,15 @@
 textarea {
     resize:none;
 }
-#parametersTable,
-#variablesTable,
-#addGroupModule table {
-table-layout:fixed;
-word-break:break-all;
+
+#addGroupModule table{
+    table-layout:fixed;
+    word-break:break-all;
 }
 
 .list-group-item:hover,
-#states tr:hover, 
-#parametersTable tbody tr:hover,
-#variablesTable tbody tr:hover {
+#states tr:hover
+{
     background:rgba(13, 138, 213, 0.1);
 }
 
@@ -28,31 +26,28 @@ word-break:break-all;
 	margin-bottom: 15px;
 }
 
-#containerForValues,
-#dataTable div:last-child {
+#dataTable div:last-child,
+#dataTableForMask div:last-child {
     table-layout:fixed;
     overflow-x:scroll;
     width:80%;
 }
 
-
-
-#containerForValues .values td,
-#dataTable div:last-child td {    
+#dataTable div:last-child td,
+#dataTableForMask div:last-child td  {    
    max-width:60px;
-    min-width:60px;
-    overflow:hidden;
-    
+   min-width:60px;
+   overflow:hidden;    
+   cursor:default;
 }
 
-#containerForValues .values td:hover,
 .hoverLight
 {
     background-color: #dff3ff;
 }
 
-#containerForHeaders,
-#dataTable div:first-child{
+#dataTable div:first-child,
+#dataTableForMask div:first-child{
     float:left;
     width:20%;
     overflow-x:hidden;
@@ -65,9 +60,12 @@ word-break:break-all;
     width:100px;
 }
 
-#containerForHeaders th, #dataTable div:first-child th {
+#dataTable div:first-child th,
+#dataTableForMask div:first-child th {
     border-bottom-width:1px;
 }
+
+/*
 #maskWidget  td {
     max-width:60px;
     min-width:60px;
@@ -79,7 +77,9 @@ word-break:break-all;
     max-height:20px;
     min-height:20px;
 }
-#maskToolBar .btn-group {
+*/
+
+#maskToolBox .btn-group {
     float:right;
 }
 

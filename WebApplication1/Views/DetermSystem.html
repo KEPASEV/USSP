@@ -121,45 +121,15 @@
                         <button type="button" class="btn-lg btn-next" value="next">Дальше</button>
                     </div>
                 </div>
-            <div id="step4" class="step-pane active">
+            <div id="step4" class="step-pane">
                 <h2>Шаг 4 - Определение функции абстрагирования</h2>
                 <div id="dataGroupModule"></div>
-                <div id="addGroupModule"></div>
-                <div id="listGroupModule"></div>                
+                <div id="addGroupModule"></div>                
             </div>
-            <div class="step-pane" id="step5">
+            <div class="step-pane active" id="step5">
                     <h2>Шаг 5 - Определение системы с поведением</h2>
-                    <div id="mask">
-                        <div id="maskWidget" class="row">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    <h3> Определение маски</h3>
-                                    <div class="form-group">
-                                        <label for="maskName">Имя маски</label>
-                                        <input type="text" id="maskName" class="form-control">
-                                        <label for="maskComment">Комментарий</label>
-                                        <input type="text" id="maskComment" class="form-control">
-                                    </div>
-                                    <div id="maskToolBar" class="row col-md-12">
-                                        <div class="btn-group" data-toggle="pill">
-                                            <button type="button" id="pen" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button>
-                                            <button type="button" id="eraser" class="btn btn-default"><span class="glyphicon glyphicon-unchecked"></span></button>
-                                            <button type="button" id="directory" class="btn btn-default"><span class="glyphicon glyphicon-collapse-down"></span></button>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div id="containerForHeaders">
-                                    <table class="table table-bordered">
-                                        <thead></thead>
-                                    </table>
-                                </div>
-                                <div id="containerForValues">
-                                    <table class="table table-bordered">
-                                        <tbody></tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
+                    <div id="maskModule" class="row"></div>
+                    <div id="mask">                        
                         <div id="selectedVarTable" class="panel panel-default">
                             <div class="panel-heading">
                                 <h3>Выборочные переменные</h3>
@@ -185,7 +155,7 @@
                             </table>
                         </div>
                     </div>
-                </div>
+            </div>
         </div>
     </div>
     <script data-main="../Scripts/app" src="../Scripts/require.js"></script>
@@ -508,19 +478,17 @@
                     <table class="table table-bordered">
                         <tbody>
                             {{#parameters}}
-                                <tr>
+                            <tr>
                                     {{#value}}
                                     <td>{{.}}</td>
                                     {{/value}}
                                 </tr>
-                            {{/parameters}}  
-                            
+                            {{/parameters}}                              
                             <tr>
                                 {{#ticks}}
                                     <td>{{.}}</td>
                                 {{/ticks}}
-                            </tr>
-                            
+                            </tr>                            
                             {{#variables}}
                             <tr data-var={{id}}>
                                 {{#value}}
@@ -591,7 +559,7 @@
                 </table>
             </div>
             <div class="panel-footer">
-                <button class="btn btn-success btn-block">Сохранить</button>
+                <button class="btn btn-success btn-block btn-next">Сохранить и перейти к определению масок</button>
             </div>
         </div>
     </script>
@@ -769,36 +737,173 @@
         {{/currentElement}}
     </script>
     <script id="timeRangeDeterm" type="text/template">
-        <div class="row">
-            <div class="col-md-2">
-            <input type="text" class="form-control" />
+        {{#currentElement.groups}}
+        <tr>
+            <td>{{num}}</td>
+            <td>
+                {{^forEdit}}
+                {{name}}
+                {{/forEdit}}
+                {{#forEdit}}
+                <input type="text" class="form-control" name="{{id}}" value={{name}} />
+                {{/forEdit}}
+            </td>
+            <td>
+                {{^range}}
+                <div class="row" id={{id}}>
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <input type="datetime" id="" class="form-control low" />
+                            </div>
+                            <div class="col-md-2">
+                                <select class="selectSign lowSign" id="" data-width="70">
+                                    <option value="<"><</option>
+                                    <option value="<="><=</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="h3" style="overflow-x:auto;overflow-y:hidden">
+                                    <span class="label label-info">{{name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="h3" style="overflow-x: auto;overflow-y:hidden">
+                                    <span class="label label-info">{{name}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <select class="selectSign highSign" id="" data-width="70">
+                                    <option value="<"><</option>
+                                    <option value="<="><=</option>
+                                </select>
+                            </div>
+                            <div class="col-md-5">
+                                <input type="datetime" id="" class="form-control high" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="groupToolBox col-md-1">
+                        <input type="text" value={{id}} hidden>
+                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+                {{/range}}
+                {{#range}}
+                <div class="row">
+                    <div class="col-md-11">
+                        <div class="row">
+                            <div class="col-md-5 h3">
+                                <span class="label label-info">{{low}}</span>
+                            </div>
+                            <div class="col-md-2 h3">
+                                <span class="">{{lowSign}}</span>
+                            </div>
+                            <div class="col-md-5 h3">
+                                <div class="h3" style="overflow-x:auto;overflow-y:hidden">
+                                    <span class="label label-info">{{name}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="h3" style="overflow-x: auto;overflow-y:hidden">
+                                    <span class="label label-info">{{name}}</span>
+                                </div>
+                            </div>
+                            <div class="col-md-2 h3">
+                                <span class="">{{highSign}}</span>
+                            </div>
+                            <div class="col-md-5 h3">
+                                <span class="label label-info">{{high}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="groupToolBox col-md-1">
+                        <input type="text" value={{id}} hidden>
+                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-pencil"></span></button>
+                        <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                    </div>
+                </div>
+                {{/range}}
+            </td>
+        </tr>
+        {{/currentElement.groups}}            
+    </script>
+    <script id="maskTemplate" type="text/template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3> Определение маски</h3>
+                <div class="form-group">
+                    <label for="maskName">Название маски</label>
+                    <input type="text" id="maskName" class="form-control" placeholder="Введите название маски">
+                    <label for="maskComment">Комментарий</label>
+                    <input type="text" id="maskComment" class="form-control" placeholder="Место для маленького комментария">
+                </div>
+                <div id="maskToolBox" class="row">
+                    <div class="col-md-12">
+                        <div class="btn-group" data-toggle="pill">
+                            <button type="button" id="pen" class="btn btn-default"><span class="glyphicon glyphicon-edit"></span></button>
+                            <button type="button" id="eraser" class="btn btn-default"><span class="glyphicon glyphicon-unchecked"></span></button>
+                            <button type="button" id="directory" class="btn btn-default"><span class="glyphicon glyphicon-collapse-down"></span></button>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
-            <div class="col-md-1">
-            <select>
-                <option> < </option>
-                <option> > </option>
-                <option> <= </option>
-                <option> >= </option>
-            </select>
+            <div class="panel-body">
+                <div id="dataTableForMask" class="panel panel-body">
+                    <div>
+                        <table class="table table-bordered">
+                            <thead>
+                                {{#parameters}}
+                                <tr><th>{{name}}</th></tr>
+                                {{/parameters}}
+                                <tr><th>Отсчеты</th></tr>
+                                <tr><th>Справочник</th></tr>
+                                {{#variables}}
+                                <tr data-var={{id}}><th>{{name}}</th></tr>
+                                {{/variables}}
+                            </thead>
+                        </table>
+                    </div>
+                    <div>
+                        <table class="table table-bordered">
+                            <tbody>
+                                {{#parameters}}
+                                <tr>
+                                    {{#value}}
+                                    <td>{{.}}</td>
+                                    {{/value}}
+                                </tr>
+                                {{/parameters}}
+                                <tr>
+                                    {{#ticks}}
+                                    <td>{{.}}</td>
+                                    {{/ticks}}
+                                </tr>
+                                <tr class="shifts">
+                                    {{#directories}}  
+                                    <td>{{&.}}</td>                                    
+                                    {{/directories}}
+                                </tr>
+                                {{#variables}}
+                                <tr data-var={{id}} class="values">
+                                    {{#value}}
+                                    <td>{{.}}</td>
+                                    {{/value}}
+                                </tr>
+                                {{/variables}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-2">
-            <span></span>
-            </div>
-            <div class="col-md-1">
-            <select>
-                <option> < </option>
-                <option> > </option>
-                <option> <= </option>
-                <option> >= </option>
-            </select>
-            </div>
-            <div class="col-md-2">
-            <input type="text" class="form-control" />
-            </div>
-            <div class="col-md-1">
-            <button class="btn btn-block">
-                Сохранить
-            </button>
+            <div class="panel-footer">
+                <button class="btn btn-success btn-block">Сохранить</button>
             </div>
         </div>
     </script>

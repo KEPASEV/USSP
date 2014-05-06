@@ -9,10 +9,15 @@ require(['mustache',
          'Libs/wizard',
          'SystemsModule',
          'ElementsModule',
-         'GroupsModule'],
-         function (mustache, jquery, wizard, SystemsModule, ElementsModule, GroupsModule) {
+         'GroupsModule',
+         'MaskModule'],
+         function (mustache, jquery, wizard, SystemsModule, ElementsModule, GroupsModule, MaskModule) {
 
              jquery('#myWizard').wizard();
+             jquery('.btn-next')
+            .on("click", function (e) {
+                jquery('#myWizard').wizard('next', 'foo');
+            });
              localStorage.currentElements = JSON.stringify({
                  parameters: [
                      {
@@ -57,5 +62,6 @@ require(['mustache',
     SystemsModule.start();
     ElementsModule.start();
     GroupsModule.start();
+    MaskModule.start();
  
 });
