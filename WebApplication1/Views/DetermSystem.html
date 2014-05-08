@@ -129,32 +129,7 @@
             <div class="step-pane active" id="step5">
                     <h2>Шаг 5 - Определение системы с поведением</h2>
                     <div id="maskModule" class="row"></div>
-                    <div id="mask">                        
-                        <div id="selectedVarTable" class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3>Выборочные переменные</h3>
-                                <div id="selectedVarTableToolbar">
-                                    <div class="form-group">
-                                        <label for="currentTick">Текущий отсчет</label>
-                                        <input type="number" id="currentTick" class="form-control">
-                                    </div>
-                                </div>
-                            </div>
-                            <table class="table table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Исходная переменная</th>
-                                        <th>Правило сдвига</th>
-                                        <th>Имя</th>
-                                        <th>Порождаемая</th>
-                                        <th>Значение</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="selectedVars"></tbody>
-                            </table>
-                        </div>
-                    </div>
+                    <!--<div id="listMaskModule"></div>-->
             </div>
         </div>
     </div>
@@ -906,6 +881,58 @@
                 <button class="btn btn-success btn-block">Сохранить</button>
             </div>
         </div>
+    </script>
+    <script id="listMaskTemplate" type="text/template">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Выборочные переменные</h3>
+                <div id="selectedVarTableToolbar">
+                    <div class="form-group">
+                        <label for="currentTick">Текущий отсчет</label>
+                        <input type="number" id="currentTick" class="form-control">
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Исходная переменная</th>
+                        <th>Правило сдвига</th>
+                        <th>Имя</th>
+                        <th>Порождаемая</th>
+                        <th>Значение</th>
+                    </tr>
+                </thead>
+                <tbody>                  
+                    {{#selectedVarList}}  
+                    <tr>
+                        <td>{{num}}</td>
+                        <td>{{initVar}}</td>
+                        <td>{{shift}}</td>
+                        <td>{{name}}</td>
+                        <td>
+                        {{#g}}
+                        <input type="checkbox" checked/>
+                        {{/g}}
+                        {{^g}}
+                        <input type="checkbox" />
+                        {{/g}}
+                        </td>
+                        <td>{{value}}</td>
+                        <td>
+                            <div class="groupToolBox col-md-1">
+                                <input type="text" value={{id}} hidden>
+                                <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-floppy-disk"></span></button>
+                                <button class="btn btn-sm btn-link"><span class="glyphicon glyphicon-remove"></span></button>
+                            </div>
+                        </td>
+                    </tr>                                    
+                    {{/selectedVarList}}  
+                </tbody>
+            </table>
+        </div>
+
     </script>
 </body>
 </html>

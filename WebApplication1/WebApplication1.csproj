@@ -100,6 +100,7 @@
     <Content Include="Scripts\Controllers\InfoSystem.js" />
     <Content Include="Scripts\Controllers\ListElement.js" />
     <Content Include="Scripts\Controllers\ListGroup.js" />
+    <Content Include="Scripts\Controllers\ListMask.js" />
     <Content Include="Scripts\Controllers\ListSystem.js" />
     <Content Include="Scripts\Controllers\AddMask.js" />
     <Content Include="Scripts\ElementsModule.js" />
@@ -148,6 +149,7 @@
     <Content Include="Scripts\Views\InfoSystemView.js" />
     <Content Include="Scripts\Views\ListElementView.js" />
     <Content Include="Scripts\Views\ListGroupView.js" />
+    <Content Include="Scripts\Views\ListMaskView.js" />
     <Content Include="Scripts\Views\ListSystemView.js" />
     <Content Include="Views\About.html" />
     <Content Include="Views\Authorization.html" />

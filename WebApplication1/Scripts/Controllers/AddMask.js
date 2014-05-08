@@ -1,5 +1,9 @@
 ﻿define(['jquery',
-        'Views/AddMaskView'], function (jquery, AddMaskView) {
+        'Views/AddMaskView',
+        'Models/SelectedVar',
+        'Models/Mask',
+        'Controllers/ListMask',
+        'Libs/lodash.compat.min'], function (jquery, AddMaskView, SelectedVar, Mask, ListMask, lodash) {
 
 
             var module, toolBox, maskName, maskComment, shifts;
@@ -39,7 +43,7 @@
                                     elem = jquery(this);
                                     if (editMode === "pen") {
                                         elem.addClass(selectedClass);
-                                        //addInSelectedVarList(elem);
+                                        addInSelectedVarList(elem);
                                     } else if (editMode === "eraser") {
                                         elem.removeClass(selectedClass);
                                         //removeFromSelectedVarList(elem);
@@ -55,7 +59,7 @@
                                 elem = jquery(this);
                                 if (editMode === "pen") {
                                     elem.addClass(selectedClass);
-                                //    addInSelectedVarList(elem);
+                                    addInSelectedVarList(elem);
                                 } else if (editMode === "eraser") {
                                     elem.removeClass(selectedClass);
                                //     removeFromSelectedVarList(elem);
@@ -68,7 +72,6 @@
                             if (editMode === "directory") {
                                 t = jquery(this)[0].cellIndex;
                                 fixNewDirectory(t);
-
                             }
                         });
                 });
@@ -79,7 +82,22 @@
                 return clicked;                
             }
 
-            function drawMask() {              
+            function addInSelectedVarList(cell) {              
+                var newSelectedVar = new SelectedVar({});
+                var value = cell.text();
+                newSelectedVar.initVar = parseInt(cell.parent().data("var"));
+                newSelectedVar.shift = parseInt(shifts[0].cells[cell[0].cellIndex].innerText);
+                newSelectedVar.g = false;
+
+                var currentSelectedVars = getSelectedVarList();
+                if (lodash.findIndex(currentSelectedVars.selectedVarList, function (el) {
+                    return (el.initVar == newSelectedVar.initVar && el.shift == newSelectedVar.shift);
+                }) == -1) {
+                    currentSelectedVars.selectedVarList.push(newSelectedVar);
+                    saveSelectedVarList(currentSelectedVars);
+                    refreshTable();
+                }               
+
             }
 
             function fixNewDirectory(t) {
@@ -102,12 +120,25 @@
 
             function removeMaskElements(){
             }
+
             function getData() {
                 var data;
                 if (localStorage.elementsWithData) {
                     data = JSON.parse(localStorage.elementsWithData);
                 }
                 return data;
+            }
+
+            function getSelectedVarList() {
+                return JSON.parse(localStorage.selectedVarList);
+            }
+
+            function saveSelectedVarList(list) {
+                localStorage.selectedVarList = JSON.stringify(list);
+            }
+
+            function refreshTable() {
+                ListMask.start(getSelectedVarList());
             }
 
             return {
