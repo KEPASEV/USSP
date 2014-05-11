@@ -1,0 +1,76 @@
+﻿<div class="container">
+    <!--NAVIGATION PANEL-->
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="navbar-header">
+            @Html.ActionLink("Универсальный решатель системных задач", "", "Home", null, new { @class = "navbar-brand" })
+        </div>
+        <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li>
+                    @Html.ActionLink("О проекте", "", "About")
+                </li>
+                <li>
+                    @Html.ActionLink("Контакты", "", "Contacts")
+                </li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                    @Html.ActionLink("Войти", "", "Authorization")
+                </li>
+                <li>
+                    @Html.ActionLink("Зарегистрироваться", "", "Registration")
+                </li>                
+            </ul>
+        </div>
+    </nav>
+    <!--BODY CONTENT-->
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form class="form-signin" role="form">
+                <h2 class="form-signin-heading">Введите ваш логин и пароль</h2>
+                <input id="login" type="text" class="form-control" placeholder="Ваш логин" required autofocus>
+                <input id="pass" type="password" class="form-control" placeholder="Пароль" required>
+                <input id="confirm" type="password" class="form-control" placeholder="Подтвердить пароль" required>
+                <button id="reg" data-loading-text="Идет регистрация..." class="btn btn-lg btn-primary btn-block" type="button"> Зарегистрироваться </button>
+            </form>            
+            <div id="resultReg"></div>
+    
+        </div>
+    </div>
+
+    <!--FOOTER-->
+    <div class="navbar-fixed-bottom row-fluid">
+        <div class="container">
+            <p class="text-muted">Универсальный решатель системных задач. Авторы Колесников Антон, Кузнецов Евгений. @DateTime.Now.Year</p>
+        </div>
+    </div>
+</div>    
+<script data-main="/Scripts/reg" src="/Scripts/require.js"></script>
+<script id="resultRegTmpl" type="text/template">
+    {{#success}}
+    <div id="successReg" class="alert alert-success">
+        <p>
+            Поздравляем! Вы успешно зарегистрировались! <br>
+            Теперь вы можете войти в систему, используя свой логин и пароль.<br>
+            Для входа в систему используйте ссылку @Html.ActionLink("Войти", "", "Authorization")
+        </p>
+    </div>
+    {{/success}}
+    {{#errors}}
+    <div class="alert alert-danger">
+        <p>  Ошибка! </p>                    
+        {{#UserName}}
+        <p>{{.}}</p> 
+        {{/UserName}}
+        {{#Password}} 
+        <p>{{.}}</p> 
+        {{/Password}}
+        {{#Confirm}}
+        <p>{{.}}</p>
+        {{/Confirm}}        
+        {{#Other}}
+        <p>{{.}}</p>
+        {{/Other}}        
+    </div>
+    {{/errors}}
+</script>

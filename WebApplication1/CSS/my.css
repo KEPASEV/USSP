@@ -1,0 +1,97 @@
+textarea {
+    resize:none;
+}
+
+#addGroupModule table{
+    table-layout:fixed;
+    word-break:break-all;
+}
+
+.list-group-item:hover,
+#states tr:hover
+{
+    background:rgba(13, 138, 213, 0.1);
+}
+
+.selectedItem {
+    background:rgba(0, 132, 211, 0.32);
+}
+
+.bg-danger {
+  background-color: rgba(238, 55, 52, 0.15);
+}
+
+.marginfix{
+	margin-top: 10px;
+	margin-bottom: 15px;
+}
+
+#dataTable div:last-child,
+#dataTableForMask div:last-child {
+    table-layout:fixed;
+    overflow-x:scroll;
+    width:80%;
+}
+
+#dataTable div:last-child td,
+#dataTableForMask div:last-child td  {    
+   max-width:60px;
+   min-width:60px;
+   overflow:hidden;    
+   cursor:default;
+}
+
+.hoverLight
+{
+    background-color: #dff3ff;
+}
+
+#dataTable div:first-child,
+#dataTableForMask div:first-child{
+    float:left;
+    width:20%;
+    overflow-x:hidden;
+    border-collapse:collapse;
+    border-spacing:0;
+}
+
+.inputNumber 
+{
+    width:100px;
+}
+
+#dataTable div:first-child th,
+#dataTableForMask div:first-child th {
+    border-bottom-width:1px;
+}
+
+/*
+#maskWidget  td {
+    max-width:60px;
+    min-width:60px;
+    overflow:hidden;
+}
+
+#shift,#shiftHeader {
+    height:20px;
+    max-height:20px;
+    min-height:20px;
+}
+*/
+
+#maskToolBox .btn-group {
+    float:right;
+}
+
+.fixed {
+    position:fixed;
+    width:200px;
+}
+
+.clear {
+    float:none;
+}
+
+#selectedVarTable {
+    margin-top: 20px;
+}
