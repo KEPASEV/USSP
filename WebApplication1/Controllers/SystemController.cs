@@ -25,24 +25,31 @@ namespace WebApplication1.Controllers
         }
 
         // GET api/system/5
-        public string Get(int id)
+        public SystemModels Get(int id)
         {
-            return "value";
+            return systems.First(el => el.id==id);
         }
 
         // POST api/system
-        public void Post([FromBody]string value)
+        public void Post([FromBody]SystemModels value)
         {
         }
 
         // PUT api/system/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]SystemModels value)
         {
+            
         }
 
         // DELETE api/system/5
         public void Delete(int id)
-        {
+        {            
+            for (int i = 0; i < systems.Length; i++) {
+                if (systems[i].id == id) {
+                    systems[i] = null;
+                }
+                
+            }            
         }
     }
 }

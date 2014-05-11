@@ -32,9 +32,13 @@
             var name = inputName.val();
             var goal = inputGoal.val();
             var id = guidGenerator.getGUID();
-            console.log(id);
-            systems.push(new System({id:id, name: name, goal: goal }));
+            //console.log(id);
+            var newSystem = new System({ id: id, name: name, goal: goal });
+            systems.push(newSystem);
             localStorage.systems = JSON.stringify(systems);
+            addSystem(newSystem, function (data) {
+                console.log(data);
+            });
             require(['Controllers/ListSystem'], function (ListSystem) {
                 ListSystem.start();
             });
@@ -49,6 +53,9 @@
         buttonAdd.on('click', function (e) {
             var systems = JSON.parse(localStorage.systems);
 
+            
+
+
             var name = inputName.val();
             var goal = inputGoal.val();
             var index;
@@ -57,6 +64,9 @@
                     systems[i].name = name;
                     systems[i].goal = goal;
                     index = i;
+                    editSystem(systemId, systems[i], function (data) {
+                        console.log(data);
+                    });
                     break;
                 }
             }
@@ -66,6 +76,7 @@
             });
             
             localStorage.systems = JSON.stringify(systems);
+
             require(['Controllers/ListSystem'], function (ListSystem) {
                 ListSystem.start();                         
             });
@@ -84,6 +95,34 @@
             currentSystem = undefined;
             start();
         }        
+    }
+
+    function addSystem(system, func) {
+        var uri = 'api/system/';
+        jquery.ajax({
+            type: "POST",
+            url: uri,
+            contentType: "application/json",
+            data: JSON.stringify(system)
+        })
+        .done(
+        function (data) {
+            func(data);
+        });
+    }
+
+    function editSystem(id, system, func) {
+        var uri = 'api/system/'+id;
+        jquery.ajax({
+            type: "PUT",
+            url: uri,
+            contentType: "application/json",
+            data: JSON.stringify(system)
+        })
+        .done(
+        function (data) {
+            func(data);
+        });
     }
 
     return {

@@ -6,20 +6,16 @@
     var module, list;
 
     function start() {
-        var uri = 'api/system';
-        jquery.getJSON(uri)
-            .done(
+        getSystems(
             function (data) {
+                console.log(data);
                 localStorage.systems = JSON.stringify(data)
                 ListSystemView.render(data);
                 initModuleElements();
                 bindEvents();
-            }).fail(
-            function (data) {
-                ListSystemView.render(data);
-                initModuleElements();
-                bindEvents();
-            });
+            }
+        );      
+
     }
 
     function initModuleElements() {
@@ -57,6 +53,9 @@
                         index = i;
                     }
                 }
+                getSystem(systemId, function (data) {
+                    console.log(data);
+                })
                 require(['Controllers/InfoSystem'], function (InfoSystem) {
                     InfoSystem.start(system);
                 });
@@ -97,6 +96,9 @@
                 system = systems[i];
             }
         }
+        getSystem(systemId, function (data) {
+            console.log();
+        })
         require(['Controllers/AddSystem'], function (AddSystem) {
             AddSystem.start(system);
         });
@@ -119,7 +121,11 @@
         var modal = jquery('#removeModal');
         modal.find('.btn-default')
             .click(function () {
-                
+                removeSystem(systemId,
+                    function (data) {
+                        console.log(data);
+                    }
+                    );
                 var newSystems = removeFromArr(index, systems);
                 localStorage.systems = JSON.stringify(newSystems);
                 modal.modal('hide');
@@ -139,9 +145,38 @@
         return Arr
     }
        
-    function getData() {
-        
-        return systems;
+    function getSystems(func) {
+        var uri = 'api/system';
+        jquery.getJSON(uri)
+            .done(
+            function (data) {
+                func(data);                
+            })
+    }
+
+    function removeSystem(id, func) {
+        var uri = 'api/system/'+id;
+        jquery.ajax({
+            type: "DELETE",
+            url: uri
+        })
+        .done(
+        function (data) {
+            func(data);
+        })
+
+    }
+
+    function getSystem(id, func) {
+        var uri = 'api/system/' + id;
+        jquery.ajax({
+            type: "GET",
+            url: uri
+        })
+        .done(
+        function (data) {
+            func(data);
+        });
     }
 
     return {

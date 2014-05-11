@@ -10,6 +10,7 @@ namespace WebApplication1.Models
         public int id { get; set; }
         public string name { get; set; }
         public string goal { get; set; }
-        
+        public UserInfoViewModel user { get; set; }   
     }
+       
 }
