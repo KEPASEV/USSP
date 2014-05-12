@@ -8,7 +8,6 @@
     function start() {
         getSystems(
             function (data) {
-                console.log(data);
                 localStorage.systems = JSON.stringify(data)
                 ListSystemView.render(data);
                 initModuleElements();
@@ -147,7 +146,13 @@
        
     function getSystems(func) {
         var uri = 'api/system';
-        jquery.getJSON(uri)
+        jquery.ajax({
+                type: "GET",
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                },
+                url: uri
+            })
             .done(
             function (data) {
                 func(data);                
@@ -158,6 +163,9 @@
         var uri = 'api/system/'+id;
         jquery.ajax({
             type: "DELETE",
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            },
             url: uri
         })
         .done(
@@ -171,6 +179,9 @@
         var uri = 'api/system/' + id;
         jquery.ajax({
             type: "GET",
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            },
             url: uri
         })
         .done(

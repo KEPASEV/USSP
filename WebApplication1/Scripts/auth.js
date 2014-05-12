@@ -6,61 +6,65 @@
 });
 
 require(['jquery',
-         'mustache',
-         'Libs/bootstrap.min'],
+         'mustache'],
     function (jquery, mustache, bootstrap) {
-        var form = jquery('form');
-        var login = jquery('#login');
-        var pass = jquery('#pass');        
-        var signin = jquery('#signin');
+        require(['Libs/bootstrap.min'], function (bootstrap) {
 
-        signin.on('click', function () {
+            var form = jquery('form');
+            var login = jquery('#login');
+            var pass = jquery('#pass');
+            var signin = jquery('#signin');
 
-            var requestBody = 'grant_type=password&username=' + login.val() + '&password=' + pass.val();
+            signin.on('click', function () {
 
-            var btn = $(this);
-            btn.button('loading');
+                var requestBody = 'grant_type=password&username=' + login.val() + '&password=' + pass.val();
+
+                var btn = $(this);
+                btn.button('loading');
 
 
-            var result = jquery.ajax({
-                type: "POST",
-                url: "Token",
-                contentType: "application/x-www-form-urlencoded",
-                data: requestBody
-            });
+                var result = jquery.ajax({
+                    type: "POST",
+                    url: "Token",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: requestBody
+                });
 
-            result.always(function () {
-                btn.button('reset')
-            });
+                result.always(function () {
+                    btn.button('reset')
+                });
 
-            result.done(function (msg) {
-                localStorage.token = result.responseJSON.access_token;
-                localStorage.userName = result.responseJSON.userName;
+                result.done(function (msg) {
+                    localStorage.token = result.responseJSON.access_token;
+                    localStorage.userName = result.responseJSON.userName;
 
-                var requestBody = {
-                    success: true,
-                    errors: false
-                }
-
-                window.location.replace("/DetermSystem");
-            })
-            result.fail(function (jqXHR, textStatus) {
-                form.find('input').val('');
-
-                var requestBody = {
-                    success: true,
-                    errors: {
-                        ErrorDescription: result.responseJSON.error_description
+                    var requestBody = {
+                        success: true,
+                        errors: false
                     }
-                }
 
-                var tmpl = jquery('#resultAuthTmpl').html();
-                var html = mustache.to_html(tmpl, requestBody);
-                jquery('#resultAuth').html(html);
-                
+                    window.location.replace("/DetermSystem");
+                })
+                result.fail(function (jqXHR, textStatus) {
+                    form.find('input').val('');
+
+                    var requestBody = {
+                        success: true,
+                        errors: {
+                            ErrorDescription: result.responseJSON.error_description
+                        }
+                    }
+
+                    var tmpl = jquery('#resultAuthTmpl').html();
+                    var html = mustache.to_html(tmpl, requestBody);
+                    jquery('#resultAuth').html(html);
+
+                });
+
             });
-
-        });
+        
+        })
+        
 
     }
 );

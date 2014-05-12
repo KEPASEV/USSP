@@ -31,20 +31,19 @@
             
             var name = inputName.val();
             var goal = inputGoal.val();
-            var id = guidGenerator.getGUID();
-            //console.log(id);
+            var id = guidGenerator.getGUID();            
             var newSystem = new System({ id: id, name: name, goal: goal });
             systems.push(newSystem);
             localStorage.systems = JSON.stringify(systems);
             addSystem(newSystem, function (data) {
-                console.log(data);
-            });
-            require(['Controllers/ListSystem'], function (ListSystem) {
-                ListSystem.start();
-            });
+                require(['Controllers/ListSystem'], function (ListSystem) {
+                    ListSystem.start();
+                });
 
-            inputName.val('').focus();
-            inputGoal.val('');
+                inputName.val('').focus();
+                inputGoal.val('');
+            });
+            
         });
     }
             
@@ -52,9 +51,6 @@
         currentSystemId = systemId;
         buttonAdd.on('click', function (e) {
             var systems = JSON.parse(localStorage.systems);
-
-            
-
 
             var name = inputName.val();
             var goal = inputGoal.val();
@@ -65,26 +61,26 @@
                     systems[i].goal = goal;
                     index = i;
                     editSystem(systemId, systems[i], function (data) {
-                        console.log(data);
+
+                        require(['Controllers/InfoSystem'], function (InfoSystem) {
+                            InfoSystem.start(systems[index]);
+                        });
+
+                        localStorage.systems = JSON.stringify(systems);
+
+                        require(['Controllers/ListSystem'], function (ListSystem) {
+                            ListSystem.start();
+                        });
+
+                        inputName.val('').focus();
+                        inputGoal.val('');
+                        currentSystemId = undefined;
+                        start();
+
                     });
                     break;
                 }
             }
-            
-            require(['Controllers/InfoSystem'], function (InfoSystem) {
-                InfoSystem.start(systems[index]);
-            });
-            
-            localStorage.systems = JSON.stringify(systems);
-
-            require(['Controllers/ListSystem'], function (ListSystem) {
-                ListSystem.start();                         
-            });
-
-            inputName.val('').focus();
-            inputGoal.val('');
-            currentSystemId = undefined;
-            start();
         });
     }
             
@@ -101,6 +97,9 @@
         var uri = 'api/system/';
         jquery.ajax({
             type: "POST",
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            },
             url: uri,
             contentType: "application/json",
             data: JSON.stringify(system)
@@ -112,9 +111,13 @@
     }
 
     function editSystem(id, system, func) {
+        delete system.id;
         var uri = 'api/system/'+id;
         jquery.ajax({
             type: "PUT",
+            headers: {
+                Authorization: "Bearer " + localStorage.token
+            },
             url: uri,
             contentType: "application/json",
             data: JSON.stringify(system)
