@@ -17,10 +17,10 @@ require(['mustache',
     var userName = mustache.to_html('<a href="#">{{.}}</a>',localStorage.userName);
     jquery('#user').html(userName);
              
-    jquery('.btn-next')
-    .on("click", function (e) {
-        jquery('#myWizard').wizard('next', 'foo');
-    });
+//    jquery('.btn-next')
+  //  .on("click", function (e) {
+    //    jquery('#myWizard').wizard('next', 'foo');
+   // });
 
     (function logout() {
         jquery('#logout').on('click', function () {
@@ -84,7 +84,7 @@ require(['mustache',
     }());
              
     SystemsModule.start();
-    ElementsModule.start();
+
     GroupsModule.start();
     MaskModule.start();
  

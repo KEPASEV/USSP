@@ -12,19 +12,16 @@ namespace WebApplication1.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Systems
+    public partial class Roles
     {
-        public Systems()
+        public Roles()
         {
             this.Elements = new HashSet<Elements>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Goal { get; set; }
-        public string User { get; set; }
     
-        public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual ICollection<Elements> Elements { get; set; }
     }
 }

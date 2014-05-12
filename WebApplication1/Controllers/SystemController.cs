@@ -16,17 +16,17 @@ namespace WebApplication1.Controllers
         Entities db = new Entities();
 
         // GET api/system
-        public IEnumerable<SystemModels> Get()
+        public IEnumerable<SystemDTO> Get()
         {
             string userId = GetUserId();
 
             var userSystems = from systems in db.Systems
                               where systems.User == userId
                               select systems;
-            List<SystemModels> systemList= new List<SystemModels>();
+            List<SystemDTO> systemList= new List<SystemDTO>();
 
             foreach (Systems s in userSystems) {
-                SystemModels newSys = new SystemModels();
+                SystemDTO newSys = new SystemDTO();
                 newSys.id = s.Id;
                 newSys.name = s.Name;
                 newSys.goal = s.Goal;
@@ -52,10 +52,10 @@ namespace WebApplication1.Controllers
         }
 
         // GET api/system/5
-        public SystemModels Get(int id)
+        public SystemDTO Get(int id)
         {
             Systems system = db.Systems.FirstOrDefault(el => el.Id == id);
-            SystemModels systemModels = new SystemModels();
+            SystemDTO systemModels = new SystemDTO();
             systemModels.id = system.Id;
             systemModels.name = system.Name;
             systemModels.goal = system.Goal;
@@ -78,7 +78,7 @@ namespace WebApplication1.Controllers
         }
         
         // PUT api/system/5
-        public void Put(int id, [FromBody]SystemModels value)
+        public void Put(int id, [FromBody]SystemDTO value)
         {
             Systems system = db.Systems.FirstOrDefault( el => el.Id==id);
             system.Name = value.name;

@@ -5,7 +5,7 @@ using System.Web;
 
 namespace WebApplication1.Models
 {
-    public class SystemModels
+    public class SystemDTO
     {
         public int? id { get; set; }
         public string name { get; set; }

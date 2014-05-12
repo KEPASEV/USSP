@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetUsers">
           <Key>
             <PropertyRef Name="Id" />
@@ -13,6 +13,25 @@
           <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="PasswordHash" Type="nvarchar(max)" />
           <Property Name="SecurityStamp" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Elements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="Role" Type="int" Nullable="false" />
+          <Property Name="Comment" Type="nvarchar(max)" />
+          <Property Name="Values" Type="int" />
+          <Property Name="System" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="Systems">
           <Key>
@@ -23,6 +42,49 @@
           <Property Name="Goal" Type="nvarchar(max)" />
           <Property Name="User" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
+        <EntityType Name="Types">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Elements_Roles">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="1" />
+          <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Elements_Systems">
+          <End Role="Systems" Type="Self.Systems" Multiplicity="1" />
+          <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Systems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements">
+              <PropertyRef Name="System" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Elements_Type">
+          <End Role="Types" Type="Self.Types" Multiplicity="1" />
+          <End Role="Elements" Type="Self.Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Systems_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="Systems" Type="Self.Systems" Multiplicity="*" />
@@ -37,14 +99,28 @@
         </Association>
         <EntityContainer Name="ModelStoreContainer">
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Elements" EntityType="Self.Elements" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Roles" EntityType="Self.Roles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Systems" EntityType="Self.Systems" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Types" EntityType="Self.Types" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Elements_Roles" Association="Self.FK_Elements_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Elements" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Elements_Systems" Association="Self.FK_Elements_Systems">
+            <End Role="Systems" EntitySet="Systems" />
+            <End Role="Elements" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Elements_Type" Association="Self.FK_Elements_Type">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="Elements" EntitySet="Elements" />
+          </AssociationSet>
           <AssociationSet Name="FK_Systems_AspNetUsers" Association="Self.FK_Systems_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Systems" EntitySet="Systems" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -67,6 +143,7 @@
           <Property Name="Goal" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="User" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Systems_AspNetUsers" FromRole="Systems" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Elements" Relationship="Model.FK_Elements_Systems" FromRole="Systems" ToRole="Elements" />
         </EntityType>
         <Association Name="FK_Systems_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
@@ -87,7 +164,89 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Systems" EntitySet="Systems" />
           </AssociationSet>
+          <EntitySet Name="Elements" EntityType="Model.Elements" />
+          <AssociationSet Name="FK_Elements_Systems" Association="Model.FK_Elements_Systems">
+            <End Role="Systems" EntitySet="Systems" />
+            <End Role="Elements" EntitySet="Elements" />
+          </AssociationSet>
+          <EntitySet Name="Roles" EntityType="Model.Roles" />
+          <EntitySet Name="Types" EntityType="Model.Types" />
+          <AssociationSet Name="FK_Elements_Roles" Association="Model.FK_Elements_Roles">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="Elements" EntitySet="Elements" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Elements_Type" Association="Model.FK_Elements_Type">
+            <End Role="Types" EntitySet="Types" />
+            <End Role="Elements" EntitySet="Elements" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Elements">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="Role" Type="Int32" Nullable="false" />
+          <Property Name="Comment" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Values" Type="Int32" />
+          <Property Name="System" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Systems" Relationship="Model.FK_Elements_Systems" FromRole="Elements" ToRole="Systems" />
+          <NavigationProperty Name="Roles" Relationship="Model.FK_Elements_Roles" FromRole="Elements" ToRole="Roles" />
+          <NavigationProperty Name="Types" Relationship="Model.FK_Elements_Type" FromRole="Elements" ToRole="Types" />
+        </EntityType>
+        <Association Name="FK_Elements_Systems">
+          <End Type="Model.Systems" Role="Systems" Multiplicity="1" />
+          <End Type="Model.Elements" Role="Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Systems">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements">
+              <PropertyRef Name="System" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Roles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Elements" Relationship="Model.FK_Elements_Roles" FromRole="Roles" ToRole="Elements" />
+        </EntityType>
+        <EntityType Name="Types">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Elements" Relationship="Model.FK_Elements_Type" FromRole="Types" ToRole="Elements" />
+        </EntityType>
+        <Association Name="FK_Elements_Roles">
+          <End Type="Model.Roles" Role="Roles" Multiplicity="1" />
+          <End Type="Model.Elements" Role="Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements">
+              <PropertyRef Name="Role" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Elements_Type">
+          <End Type="Model.Types" Role="Types" Multiplicity="1" />
+          <End Type="Model.Elements" Role="Elements" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Types">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Elements">
+              <PropertyRef Name="Type" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -111,6 +270,35 @@
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Goal" ColumnName="Goal" />
                 <ScalarProperty Name="User" ColumnName="User" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Elements">
+            <EntityTypeMapping TypeName="Model.Elements">
+              <MappingFragment StoreEntitySet="Elements">
+                <ScalarProperty Name="System" ColumnName="System" />
+                <ScalarProperty Name="Values" ColumnName="Values" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="Role" ColumnName="Role" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="Model.Roles">
+              <MappingFragment StoreEntitySet="Roles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Types">
+            <EntityTypeMapping TypeName="Model.Types">
+              <MappingFragment StoreEntitySet="Types">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

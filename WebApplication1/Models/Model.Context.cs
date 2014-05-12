@@ -27,5 +27,8 @@ namespace WebApplication1.Models
     
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Systems> Systems { get; set; }
+        public virtual DbSet<Elements> Elements { get; set; }
+        public virtual DbSet<Roles> Roles { get; set; }
+        public virtual DbSet<Types> Types { get; set; }
     }
 }

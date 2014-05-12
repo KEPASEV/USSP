@@ -105,9 +105,10 @@
             data: JSON.stringify(system)
         })
         .done(
-        function (data) {
-            func(data);
-        });
+            function (data) {
+                func(data);
+            }
+        );
     }
 
     function editSystem(id, system, func) {

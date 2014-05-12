@@ -14,6 +14,10 @@
             .find('.btn-next').on("click", function (e) {
                 jquery('#myWizard').wizard('next', 'foo');
                 localStorage.currentSystem = JSON.stringify(currentSystem);
+                require(['ElementsModule'], function (ElementsModule) {
+                    ElementsModule.start();
+                })
+                
             });
     }
 

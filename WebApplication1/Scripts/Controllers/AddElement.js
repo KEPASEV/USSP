@@ -80,14 +80,17 @@
                 comment: commentElement
             });
             
-            addNewElementInLocalStorage(newElement);
-
-            clearInputs();
-            name.focus();
-            require(['Controllers/ListElement'], function (ListElement) {
-                ListElement.start();
+            
+            addElement(newElement, function () {
+                addNewElementInLocalStorage(newElement);
+                clearInputs();
+                name.focus();
+                require(['Controllers/ListElement'], function (ListElement) {
+                    ListElement.start();
+                })
             })
-        
+            
+
     }
 
     function edit() {        
@@ -111,12 +114,14 @@
             currentElement = undefined;
             currentElements = undefined;
 
-            clearInputs();
-            name.focus();
-            require(['Controllers/ListElement'], function (ListElement) {
-                ListElement.start();
-            })
-            start();
+            editElement(element, function () {
+                clearInputs();
+                name.focus();
+                require(['Controllers/ListElement'], function (ListElement) {
+                    ListElement.start();
+                })
+                start();
+            });            
     }
 
     function getElement(elementId, role) {
@@ -146,7 +151,7 @@
         }
         return currentElements;
     }
-
+            
     function removeElement(element) {
         var role = element.role;
         var flag = false;
@@ -182,6 +187,87 @@
         name.val('');
         type.val('number');
         comment.val('');
+    }
+
+    function addElement(element, func) {
+        var systemId = JSON.parse(localStorage.currentSystem).id;
+        var uri = 'api/Systems/' + systemId + '/Elements';
+
+        jquery.ajax(
+            {
+                type: 'POST',
+                url: uri,
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                },
+                url: uri,
+                contentType: "application/json",
+                data: JSON.stringify(wrapToSend(element))
+            }
+            ).done(
+                function (data) {
+                    func(data);
+                }
+
+            )
+
+    }
+
+    function editElement(element, func) {
+
+        var systemId = JSON.parse(localStorage.currentSystem).id;
+        var uri = 'api/Systems/' + systemId + '/Elements/'+ element.id;
+
+        jquery.ajax(
+            {
+                type: "PUT",
+                url: uri,
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                },
+                url: uri,
+                contentType: "application/json",
+                data: JSON.stringify(wrapToSend(element, true))
+            }
+            ).done(
+                function (data) {
+                    func(data);
+                }
+
+            )
+
+    }
+
+    function wrapToSend(element, flagEdit) {
+        console.log(element);
+        delete element.fuzzy;
+        delete element.domain;
+        if (!flagEdit) {
+            delete element.id;
+        }        
+        delete element.values;
+        element.system = JSON.parse(localStorage.currentSystem).id;
+        switch (element.role) {
+           case 'parameter':
+                element.role=0;
+                break;
+            case 'variable':
+                element.role = 1;
+                break;
+        }
+        switch (element.type) {
+            case 'number':
+                element.type = 0;
+                break;
+            case 'nominal':
+                element.type = 1;
+                break;
+            case 'time':
+                element.type = 2;
+                break;
+        }
+        console.log(element);
+        return element;
     }
 
     return {

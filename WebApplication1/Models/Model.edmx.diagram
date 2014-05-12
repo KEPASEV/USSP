@@ -8,6 +8,12 @@
         <EntityTypeShape EntityType="Model.AspNetUsers" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="Model.Systems" Width="1.5" PointX="3" PointY="0.875" IsExpanded="true" />
         <AssociationConnector Association="Model.FK_Systems_AspNetUsers" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Model.Elements" Width="1.5" PointX="5.125" PointY="0.875" />
+        <AssociationConnector Association="Model.FK_Elements_Systems" />
+        <EntityTypeShape EntityType="Model.Roles" Width="1.5" PointX="3" PointY="3.25" />
+        <EntityTypeShape EntityType="Model.Types" Width="1.5" PointX="5.125" PointY="4.25" />
+        <AssociationConnector Association="Model.FK_Elements_Roles" />
+        <AssociationConnector Association="Model.FK_Elements_Type" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

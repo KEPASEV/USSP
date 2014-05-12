@@ -5,11 +5,16 @@
     var module, parametersBody, variablesBody;
     var currentElements, currentElement;
 
-    function start() {
-        currentElements = getData();
-        ListElementView.render(currentElements);
-        initModuleElements();
-        actions();
+    function start(currentSystemId) {
+        currentSystemId = currentSystemId ? currentSystemId : JSON.parse(localStorage.currentSystem).id;
+        getData( currentSystemId,
+            function (currentElements) {
+                ListElementView.render(currentElements);
+                initModuleElements();
+                actions();
+            }
+            );
+        
     }
 
     function initModuleElements() {
@@ -19,29 +24,88 @@
         onNext();
     }
 
-    function getData() {        
-        currentElements = localStorage.currentElements ? JSON.parse(localStorage.currentElements) : undefined;
-        if (currentElements) {
-            currentElements.parametersCount = 1;
-            currentElements.variablesCount = 1;
-            currentElements.parametersNum = function () {
-                return currentElements.parametersCount++;
-            };
-            currentElements.variablesNum = function () {
-                return currentElements.variablesCount++;
-            };
-            currentElements.wrapForType = function () {
-                var currentType = this.type;
-                if (currentType == 'number') {
-                    return 'числовой';
-                } else if (currentType == 'nominal') {
-                    return 'номинальный';
-                } else if (currentType == 'time') {
-                    return 'временной';
+    function getData(SystemId ,func) {        
+        //currentElements = localStorage.currentElements ? JSON.parse(localStorage.currentElements) : undefined;
+        var uri = 'api/Systems/'+SystemId+'/Elements';
+        jquery.ajax(
+            {
+                type: "GET",
+                url: uri,
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
                 }
             }
-        }
-        return currentElements;
+        )
+        .done(
+            function (data) {
+                
+                currentElements = {};
+                currentElements.parameters = [];
+                currentElements.variables = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (data[i].role == 1) {
+                        data[i].role = "variable"
+                        switch (data[i].type) {
+                            case 0:
+                                data[i].type = "number";
+                                break;
+                            case 1:
+                                data[i].type = "nominal";
+                                break;
+                            case 2:
+                                data[i].type = "time";
+                                break;
+                        }
+                        
+                        currentElements.variables.push(data[i]);
+                    } else
+                    if (data[i].role == 0) {
+                        data[i].role = "parameter"
+                        switch (data[i].type) {
+                            case 0:
+                                data[i].type ="number";
+                                break;
+                            case 1:
+                                data[i].type = "nominal";
+                                break;
+                            case 2:
+                                data[i].type = "time";
+                                break;
+                        }
+                        
+                        currentElements.parameters.push(data[i]);
+                    }
+                }
+                
+                                
+                if (currentElements) {
+                    currentElements.parametersCount = 1;
+                    currentElements.variablesCount = 1;
+                    currentElements.parametersNum = function () {
+                        return currentElements.parametersCount++;
+                    };
+                    currentElements.variablesNum = function () {
+                        return currentElements.variablesCount++;
+                    };
+                    currentElements.wrapForType = function () {
+                        var currentType = this.type;
+                        if (currentType == 'number') {
+                            return 'числовой';
+                        } else if (currentType == 'nominal') {
+                            return 'номинальный';
+                        } else if (currentType == 'time') {
+                            return 'временной';
+                        }
+                    }
+                }
+                    
+                localStorage.currentElements = JSON.stringify(currentElements);
+
+                func(currentElements);
+
+            }
+
+        )      
     }
 
     function actions() {
@@ -75,26 +139,30 @@
         }
     }
 
-    function removeElement(element) {        
-        var role = element.role;
-        var flag = false;
-        var arr;
-        if (role == 'variable') {
-            arr = currentElements.variables;           
-        } else if (role == 'parameter') {
-            arr = currentElements.parameters;
-        }
-        for (var i = 0, len = arr.length; i < len; i++) {
-            if (arr[i].id == element.id) {
-                flag = true;
+    function removeElement(element) {                
+        removeElementOnServer(element.id, function () {
+            var role = element.role;
+            var flag = false;
+            var arr;
+            if (role == 'variable') {
+                arr = currentElements.variables;
+            } else if (role == 'parameter') {
+                arr = currentElements.parameters;
             }
-            if (flag) {
-                arr[i] = arr[i + 1];
+            for (var i = 0, len = arr.length; i < len; i++) {
+                if (arr[i].id == element.id) {
+                    flag = true;
+                }
+                if (flag) {
+                    arr[i] = arr[i + 1];
+                }
             }
-        }
-        arr.pop();
-        localStorage.currentElements = JSON.stringify(currentElements);
-        start();
+            arr.pop();
+
+            localStorage.currentElements = JSON.stringify(currentElements);
+            start();
+        })
+        
     }
 
     function editElement(element) {
@@ -124,6 +192,30 @@
             .on("click", function (e) {                
                 jquery('#myWizard').wizard('next', 'foo');              
             });
+    }
+
+    function wrapResponse(data) {
+
+        return data;
+    }
+
+    function removeElementOnServer(elementId, func) {
+        var SystemId = JSON.parse(localStorage.currentSystem).id;
+        var uri = 'api/Systems/'+SystemId+'/Elements/'+elementId;
+        jquery.ajax(
+            {
+                type: "DELETE",
+                url: uri,
+                headers: {
+                    Authorization: "Bearer " + localStorage.token
+                }
+            }
+        )
+        .done(
+            function (data) {
+                func(data);
+            }
+        )
     }
 
     return {
