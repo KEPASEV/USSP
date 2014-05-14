@@ -2,10 +2,10 @@
 
     function SelectedVar(SelectedVar) {
         this.id = guidGenerator.getGUID();
-        this.num = SelectedVar.name;
+        this.name = SelectedVar.name || "name";
         this.initVar = SelectedVar.initVar;
         this.shift = SelectedVar.shift;
-        this.g = SelectedVar.g;
+        this.g = SelectedVar.g || false;
     }
 
     return SelectedVar;
